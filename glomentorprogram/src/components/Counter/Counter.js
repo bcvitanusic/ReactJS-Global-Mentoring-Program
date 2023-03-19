@@ -4,7 +4,11 @@ import './Counter.css';
 const el = React.createElement;
 
 function Button(props) {
-	return el('button', { onClick: props.handleClick }, props.name);
+	return el(
+		'button',
+		{ onClick: props.handleClick, className: 'counter-button' },
+		props.name
+	);
 }
 
 class Counter extends React.Component {
@@ -30,7 +34,10 @@ class Counter extends React.Component {
 			el('div', null, [
 				el(
 					Button,
-					{ handleClick: this.handleDecrement, name: 'Decrement' },
+					{
+						handleClick: this.handleDecrement,
+						name: 'Decrement',
+					},
 					null
 				),
 				el(
@@ -40,7 +47,14 @@ class Counter extends React.Component {
 				),
 			]),
 
-			el('p', null, this.state.num),
+			el(
+				'p',
+				{
+					className: 'paragraph',
+				},
+				null,
+				this.state.num
+			),
 		]);
 	}
 }

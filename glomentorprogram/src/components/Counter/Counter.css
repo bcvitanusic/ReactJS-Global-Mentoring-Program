@@ -5,7 +5,7 @@
     flex-direction: column;
 }
 
-button {
+.counter-button {
     background-color: #424242; 
     text-align: center;
     padding: 5px 20px;
@@ -16,7 +16,7 @@ button {
     margin: 20px;
 }
 
-button:hover {
+.counter-button:hover {
     cursor: pointer;
     background-color: #F65261;
     box-shadow: 0px 20px 30px gray;
@@ -29,6 +29,9 @@ h1 {
     text-align: center;
 }
 
-p {
-    
+p.paragraph  {
+    color:red;
+    font-size: 30px;
+    border-bottom: 1px solid black;
+    padding: 5px 40px;
 }

@@ -1,4 +1,15 @@
+* {
+  --color-red: #F65261;
+  --color-white: white;
+  --color-black: #232323;
+  --color-gray-border: #555555;
+  --color-gray: #424242;
+  box-sizing: border-box;
+  font-family: Montserrat;
+  
+}
+
 .App {
-  text-align: center;
+  background-color: var(--color-gray-border);
 }
 
