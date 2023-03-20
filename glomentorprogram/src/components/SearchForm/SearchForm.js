@@ -9,7 +9,7 @@ function SearchForm({ initialSearchQuery, onSearch }) {
 				<div className='input-field'>
 					<input
 						type={'search'}
-						placeholder={initialSearchQuery}
+						defaultValue={initialSearchQuery}
 						onChange={(e) => {
 							setSearchQuery(e.target.value);
 						}}

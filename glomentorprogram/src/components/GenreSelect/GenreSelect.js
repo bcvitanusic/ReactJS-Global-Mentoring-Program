@@ -1,12 +1,7 @@
 import React, { useState } from 'react';
 import './GenreSelect.css';
 
-const GenreSelect = ({ GenreList }) => {
-	const [selectedGenre, setSelectedGenre] = useState('ALL');
-
-	const onSelect = (name) => {
-		setSelectedGenre(name.toUpperCase());
-	};
+const GenreSelect = ({ GenreList, selectedGenre, onSelect }) => {
 	return (
 		<div className='genre-select'>
 			<div className='genre-list'>

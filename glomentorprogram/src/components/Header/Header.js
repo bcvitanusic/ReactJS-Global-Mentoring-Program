@@ -5,7 +5,6 @@ import SearchForm from '../SearchForm/SearchForm';
 function Header() {
 	return (
 		<div className='app-header'>
-			{/* <span>FIND YOUR MOVIE</span> */}
 			<SearchForm
 				initialSearchQuery={'What do you want to watch?'}
 				onSearch={(searchQuery) => {}}

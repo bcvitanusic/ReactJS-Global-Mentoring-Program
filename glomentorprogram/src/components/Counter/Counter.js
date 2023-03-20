@@ -12,9 +12,14 @@ function Button(props) {
 }
 
 class Counter extends React.Component {
-	state = {
-		num: this.props.num,
-	};
+	constructor(props) {
+		super(props);
+		this.state = {
+			num: this.props.num,
+		};
+		this.handleIncrement = this.handleIncrement.bind(this);
+		this.handleDecrement = this.handleDecrement.bind(this);
+	}
 
 	handleIncrement = () => {
 		this.setState({
