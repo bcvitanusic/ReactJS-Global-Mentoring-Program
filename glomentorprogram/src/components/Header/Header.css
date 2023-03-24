@@ -1,0 +1,76 @@
+.app-header {    
+    height:45vh;
+    margin: 0;    
+    display: flex;
+     background-image: url('../../assets/cover.png');    
+    background-position: center; 
+    background-repeat: no-repeat;
+    background-size: cover; 
+    background-blend-mode: darken;
+
+}
+
+
+
+.header-top-addons {
+    position: absolute;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 3rem;
+    margin-top: 15px;
+
+}
+.header-top-addons > header {
+    position: absolute;
+    color: white;
+    text-transform: uppercase;
+    font-size: 40px;
+    top:100%;
+    left: 5%;
+    text-align: center;
+    font-weight: 300;
+    letter-spacing: 1px;
+}
+
+.add-movie {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3px;
+    background-color: rgba(96,96,96,0.68); 
+    border-radius: 4px;
+}
+
+.add-movie > button {
+    background: none;
+    border: none;
+    color: var(--color-red);
+    text-transform: uppercase;
+    font-weight: 600;
+    padding: 7.5px 12px;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    text-align: center;
+}
+
+
+.logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--color-red);
+    font-size: 20px;
+}
+
+.logo > p {
+    padding:0;
+    margin: 0;
+}
+
+.first{
+    font-weight:900;
+}
