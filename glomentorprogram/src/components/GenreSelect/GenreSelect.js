@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './GenreSelect.css';
 
 const GenreSelect = ({ GenreList, selectedGenre, onSelect }) => {
@@ -9,6 +9,8 @@ const GenreSelect = ({ GenreList, selectedGenre, onSelect }) => {
 					{GenreList.map((item, index) => {
 						return (
 							<li
+								id={index}
+								data-testid='genre-name'
 								key={index}
 								className={`${
 									item.name.toUpperCase() === selectedGenre && 'active'

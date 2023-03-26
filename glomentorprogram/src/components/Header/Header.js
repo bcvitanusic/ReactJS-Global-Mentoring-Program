@@ -7,7 +7,9 @@ function Header() {
 		<div className='app-header'>
 			<SearchForm
 				initialSearchQuery={'What do you want to watch?'}
-				onSearch={(searchQuery) => {}}
+				onSearch={(searchQuery) => {
+					console.log(searchQuery);
+				}}
 			/>
 			<div className='header-top-addons'>
 				<div className='logo'>

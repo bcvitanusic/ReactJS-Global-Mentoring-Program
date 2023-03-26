@@ -34,20 +34,21 @@ class Counter extends React.Component {
 	};
 
 	render() {
-		return el('div', { className: 'container' }, [
-			el('h1', null, 'COUNTER'),
-			el('div', null, [
+		return el('div', { className: 'container', key: 0 }, [
+			el('h1', { key: 1 }, null, 'COUNTER'),
+			el('div', { key: 2 }, [
 				el(
 					Button,
 					{
 						handleClick: this.handleDecrement,
 						name: 'Decrement',
+						key: 3,
 					},
 					null
 				),
 				el(
 					Button,
-					{ handleClick: this.handleIncrement, name: 'Increment' },
+					{ handleClick: this.handleIncrement, name: 'Increment', key: 4 },
 					null
 				),
 			]),
@@ -56,6 +57,7 @@ class Counter extends React.Component {
 				'p',
 				{
 					className: 'paragraph',
+					key: 5,
 				},
 				null,
 				this.state.num
