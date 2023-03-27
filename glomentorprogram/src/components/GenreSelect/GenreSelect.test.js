@@ -19,7 +19,6 @@ const fakeList = [
 ];
 
 const mockedOnSelect = jest.fn();
-// onSelect={(genre) => onSelect(genre)
 
 describe('GenreSelect', () => {
 	const renderGenreSelect = () => {

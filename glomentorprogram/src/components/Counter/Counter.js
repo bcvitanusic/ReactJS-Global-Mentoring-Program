@@ -1,15 +1,8 @@
 import React from 'react';
 import './Counter.css';
+import { Button } from './Button';
 
 const el = React.createElement;
-
-function Button(props) {
-	return el(
-		'button',
-		{ onClick: props.handleClick, className: 'counter-button' },
-		props.name
-	);
-}
 
 class Counter extends React.Component {
 	constructor(props) {

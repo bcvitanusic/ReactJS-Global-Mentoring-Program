@@ -12,7 +12,6 @@ describe('SearchForm', () => {
 	test('if props in SearchForm display correctly', () => {
 		renderSearchForm();
 		const input = screen.getByLabelText('search', { name: 'search' });
-		// expect(screen.getByDisplayValue('test')).toBeInTheDocument();
 		expect(input).toHaveValue('test');
 	});
 
