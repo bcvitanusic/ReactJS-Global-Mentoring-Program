@@ -1,0 +1,146 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Counter snapshot decrements value 1`] = `
+<div
+  className="container"
+>
+  <h1>
+    COUNTER
+  </h1>
+  <div>
+    <button
+      className="counter-button"
+      onClick={[Function]}
+    >
+      Decrement
+    </button>
+    <button
+      className="counter-button"
+      onClick={[Function]}
+    >
+      Increment
+    </button>
+  </div>
+  <p
+    className="paragraph"
+  >
+    5
+  </p>
+</div>
+`;
+
+exports[`Counter snapshot decrements value 2`] = `
+<div
+  className="container"
+>
+  <h1>
+    COUNTER
+  </h1>
+  <div>
+    <button
+      className="counter-button"
+      onClick={[Function]}
+    >
+      Decrement
+    </button>
+    <button
+      className="counter-button"
+      onClick={[Function]}
+    >
+      Increment
+    </button>
+  </div>
+  <p
+    className="paragraph"
+  >
+    4
+  </p>
+</div>
+`;
+
+exports[`Counter snapshot increments value 1`] = `
+<div
+  className="container"
+>
+  <h1>
+    COUNTER
+  </h1>
+  <div>
+    <button
+      className="counter-button"
+      onClick={[Function]}
+    >
+      Decrement
+    </button>
+    <button
+      className="counter-button"
+      onClick={[Function]}
+    >
+      Increment
+    </button>
+  </div>
+  <p
+    className="paragraph"
+  >
+    5
+  </p>
+</div>
+`;
+
+exports[`Counter snapshot increments value 2`] = `
+<div
+  className="container"
+>
+  <h1>
+    COUNTER
+  </h1>
+  <div>
+    <button
+      className="counter-button"
+      onClick={[Function]}
+    >
+      Decrement
+    </button>
+    <button
+      className="counter-button"
+      onClick={[Function]}
+    >
+      Increment
+    </button>
+  </div>
+  <p
+    className="paragraph"
+  >
+    6
+  </p>
+</div>
+`;
+
+exports[`Counter snapshot renders 1`] = `
+<div
+  className="container"
+>
+  <h1>
+    COUNTER
+  </h1>
+  <div>
+    <button
+      className="counter-button"
+      onClick={[Function]}
+    >
+      Decrement
+    </button>
+    <button
+      className="counter-button"
+      onClick={[Function]}
+    >
+      Increment
+    </button>
+  </div>
+  <p
+    className="paragraph"
+  >
+    5
+  </p>
+</div>
+`;
