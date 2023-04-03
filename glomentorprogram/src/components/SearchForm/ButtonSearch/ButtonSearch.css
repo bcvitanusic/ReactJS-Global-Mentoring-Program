@@ -1,0 +1,18 @@
+.search-button {
+    background-color: var(--color-red);
+    border-radius: 4px;
+    border: none;    
+    padding: 13px 50px;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.search-button > p {
+    margin:0;
+    text-align: center;
+    text-transform: uppercase;
+    color: var(--color-white);
+    font-weight: 500;
+    font-size: 20px;
+    width: 100%;
+}

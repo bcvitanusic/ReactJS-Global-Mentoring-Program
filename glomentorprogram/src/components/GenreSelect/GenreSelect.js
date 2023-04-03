@@ -1,17 +1,24 @@
 import React from 'react';
 import './GenreSelect.css';
+import SortControl from '../SortControl/SortControl';
 
-const GenreSelect = ({ GenreList, selectedGenre, onSelect }) => {
+const GenreSelect = ({
+	GenreList,
+	selectedGenre,
+	onSelect,
+	onSelectSortBy,
+	sortBy,
+}) => {
 	return (
 		<div className='genre-select'>
 			<div className='genre-list'>
 				<ul>
-					{GenreList.map((item, index) => {
+					{GenreList.map((item) => {
 						return (
 							<li
-								id={index}
+								id={item.id}
 								data-testid='genre-name'
-								key={index}
+								key={item.id}
 								className={`${
 									item.name.toUpperCase() === selectedGenre && 'active'
 								} `}
@@ -23,9 +30,12 @@ const GenreSelect = ({ GenreList, selectedGenre, onSelect }) => {
 					})}
 				</ul>
 			</div>
-			<div className='movie-sort'>
-				<p>Sort by: something</p>
-			</div>
+			<SortControl
+				sortBy={sortBy}
+				onSelectSortBy={(id) => {
+					onSelectSortBy(id);
+				}}
+			/>
 		</div>
 	);
 };

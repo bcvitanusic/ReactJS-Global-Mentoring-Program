@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ButtonSearch from './ButtonSearch/ButtonSearch';
 import './SearchForm.css';
 
 function SearchForm({ initialSearchQuery, onSearch }) {
@@ -34,9 +35,10 @@ function SearchForm({ initialSearchQuery, onSearch }) {
 						}}
 					/>
 				</div>
-				<button className='search-button' onClick={() => onSearchPress()}>
+				{/* <button className='search-button' onClick={() => onSearchPress()}>
 					<p>Search</p>
-				</button>
+				</button> */}
+				<ButtonSearch callBackFunc={onSearchPress} />
 			</div>
 		</div>
 	);
