@@ -4,6 +4,11 @@ export default {
 	title: 'SearchForm',
 	component: SearchForm,
 	decorators: [(story) => <div style={{ padding: '3rem' }}>{story()}</div>],
+	argTypes: {
+		handleClick: {
+			action: 'search-clicked',
+		},
+	},
 };
 
 const Template = (args) => <SearchForm {...args} />;
