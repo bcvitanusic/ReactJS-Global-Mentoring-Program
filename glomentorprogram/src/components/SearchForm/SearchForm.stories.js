@@ -1,11 +1,11 @@
-import SearchForm from '../components/SearchForm/SearchForm';
+import SearchForm from './SearchForm';
 
 export default {
 	title: 'SearchForm',
 	component: SearchForm,
 	decorators: [(story) => <div style={{ padding: '3rem' }}>{story()}</div>],
 	argTypes: {
-		handleClick: {
+		onSearch: {
 			action: 'search-clicked',
 		},
 	},

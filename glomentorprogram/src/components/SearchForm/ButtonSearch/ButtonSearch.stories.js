@@ -1,4 +1,4 @@
-import ButtonSearch from '../components/SearchForm/ButtonSearch/ButtonSearch';
+import ButtonSearch from './ButtonSearch';
 
 export default {
 	title: 'ButtonSearch',

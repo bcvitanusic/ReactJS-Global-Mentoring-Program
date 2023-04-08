@@ -1,5 +1,5 @@
-import MovieTile from '../components/MovieTile/MovieTile';
-import moviesList from '../assets/moviesList';
+import MovieTile from './MovieTile';
+import moviesList from '../../assets/moviesList';
 
 export default {
 	title: 'MovieTile',

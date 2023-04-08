@@ -1,10 +1,15 @@
-import GenreSelect from '../components/GenreSelect/GenreSelect';
-import genreList from '../assets/utils.js';
+import GenreSelect from './GenreSelect';
+import genreList from '../../assets/utils.js';
 
 export default {
 	title: 'Select Genre',
 	component: GenreSelect,
 	decorators: [(story) => <div style={{ padding: '3rem' }}>{story()}</div>],
+	argTypes: {
+		onSelect: {
+			action: 'sort-clicked',
+		},
+	},
 };
 
 const Template = (args) => <GenreSelect {...args} />;
