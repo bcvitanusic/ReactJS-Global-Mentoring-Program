@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Header.css';
 import SearchForm from '../SearchForm/SearchForm';
 
-function Header() {
+function Header({ openDialog }) {
 	return (
 		<div className='app-header'>
 			<SearchForm
@@ -17,7 +17,7 @@ function Header() {
 					<p className='second'>roulette</p>
 				</div>
 				<div className='add-movie'>
-					<button>+ add movie</button>
+					<button onClick={openDialog}>+ add movie</button>
 				</div>
 				<header>find your movie</header>
 			</div>

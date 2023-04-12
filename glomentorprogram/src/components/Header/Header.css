@@ -44,6 +44,11 @@
     border-radius: 4px;
 }
 
+.add-movie > button:hover {
+    background-color: var(--color-red);
+    color: var(--color-white);
+}
+
 .add-movie > button {
     background: none;
     border: none;
