@@ -42,7 +42,16 @@ const App = () => {
 				<Dialog
 					title={'Dialog title'}
 					onClose={() => setOpenDialog(false)}
-					children={<div className='dialog-sth'> caooo</div>}
+					children={
+						<MovieForm
+							initialMovieInfo={{}}
+							onClose={() => setOpenDialog(false)}
+							onSubmit={(movie) => {
+								setOpenDialog(false);
+								console.log(movie);
+							}}
+						/>
+					}
 				/>
 			)}
 			{!selectedMovie && <Header openDialog={() => setOpenMovieForm(true)} />}
