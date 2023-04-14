@@ -6,21 +6,23 @@ const mockedFunc = jest.fn();
 describe('Movie Details', () => {
 	const renderDialog = () =>
 		render(
-			<Dialog
-				title='Dialog'
-				children={<div>children</div>}
-				onClose={mockedFunc}
-			/>
+			<Dialog title='Dialog' onClose={mockedFunc}>
+				<div>children</div>
+			</Dialog>
 		);
 
-	test('if props in MovieDetails display correctly', () => {
-		renderDialog();
+	test('if props in MovieDetails display correctly if no children', () => {
+		render(<Dialog title='Dialog' onClose={mockedFunc} />);
 		const title = screen.getByText(/dialog/i);
 		expect(title).toBeInTheDocument();
-		const children = screen.getByText(/children/i);
-		expect(children).toBeInTheDocument();
 		const close = screen.getByLabelText(/close/);
 		fireEvent.click(close);
 		expect(mockedFunc).toBeCalled();
+	});
+
+	test('if children are shown correctly', () => {
+		renderDialog();
+		const children = screen.getByText(/children/i);
+		expect(children).toBeInTheDocument();
 	});
 });

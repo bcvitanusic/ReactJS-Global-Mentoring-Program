@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import './Dialog.css';
 import { AiFillCloseCircle as CloseIcon } from 'react-icons/ai';
 
-const Dialog = ({ children, onClose, title }) => {
+const Dialog = ({ onClose, title, children }) => {
 	return createPortal(
 		<div id='dialog-overlay' className='dialog-overlay'>
 			{children ? (

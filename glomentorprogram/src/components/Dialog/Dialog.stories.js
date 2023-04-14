@@ -35,8 +35,12 @@ DialogStory.decorators = [
 	() => {
 		return (
 			<>
-				<Dialog children={<MovieForm initialMovieInfo={{}} />} />
-				<Dialog children={<MovieForm initialMovieInfo={initialMovie} />} />
+				<Dialog>
+					<MovieForm initialMovieInfo={{}} />
+				</Dialog>
+				<Dialog>
+					<MovieForm initialMovieInfo={initialMovie} />
+				</Dialog>
 				<Dialog title={'Are you sure you want to delete movie?'} />
 			</>
 		);

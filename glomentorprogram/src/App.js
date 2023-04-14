@@ -39,20 +39,16 @@ const App = () => {
 		<div className='App'>
 			<button onClick={() => setOpenDialog(true)}>Open dialog</button>
 			{openDialog && (
-				<Dialog
-					title={'Dialog title'}
-					onClose={() => setOpenDialog(false)}
-					children={
-						<MovieForm
-							initialMovieInfo={{}}
-							onClose={() => setOpenDialog(false)}
-							onSubmit={(movie) => {
-								setOpenDialog(false);
-								console.log(movie);
-							}}
-						/>
-					}
-				/>
+				<Dialog title={'Dialog title'} onClose={() => setOpenDialog(false)}>
+					<MovieForm
+						initialMovieInfo={{}}
+						onClose={() => setOpenDialog(false)}
+						onSubmit={(movie) => {
+							setOpenDialog(false);
+							console.log(movie);
+						}}
+					/>
+				</Dialog>
 			)}
 			{!selectedMovie && <Header openDialog={() => setOpenMovieForm(true)} />}
 			{selectedMovie && (
