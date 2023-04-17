@@ -1,21 +1,23 @@
 import React, { useState } from 'react';
-import './App.css';
-import Header from './components/Header/Header';
-import GenreSelect from './components/GenreSelect/GenreSelect';
-import Counter from './components/Counter/Counter.js';
-import GenreList from './assets/utils.js';
-import MovieTile from './components/MovieTile/MovieTile';
-import moviesList from './assets/moviesList';
-import MovieDetails from './components/MovieDetails/MovieDetails';
-import MovieListPage from './components/MovieListPage/MovieListPage';
 
-const App = () => {
+import './MovieListPage.css';
+import Header from '../Header/Header';
+import MovieDetails from '../MovieDetails/MovieDetails';
+import GenreSelect from '../GenreSelect/GenreSelect';
+import MovieTile from '../MovieTile/MovieTile';
+
+import GenreList from '../../assets/utils';
+import moviesList from '../../assets/moviesList';
+
+function MovieListPage() {
+	const [searchQuery, setSearchQuery] = useState('');
+	const [sortCriterio, setSortCriterio] = useState(0);
 	const [selectedGenre, setSelectedGenre] = useState('ALL');
 	const [selectedMovie, setSelectedMovie] = useState(null);
-	const [sortBy, setSortBy] = useState(0);
 	const [moviesListState, setMoviesListState] = useState(
 		moviesList.sort((a, b) => b.year - a.year)
 	);
+	const [sortBy, setSortBy] = useState(0);
 
 	const onSelect = (genre) => {
 		setSelectedGenre(genre.toUpperCase());
@@ -32,11 +34,10 @@ const App = () => {
 		}
 		setSortBy(id);
 	};
-	return (
-		<div className='App'>
-			<MovieListPage />
 
-			{/* {!selectedMovie && <Header />}
+	return (
+		<div className='main-page'>
+			{!selectedMovie && <Header />}
 			{selectedMovie && (
 				<MovieDetails
 					url={selectedMovie.url}
@@ -66,10 +67,9 @@ const App = () => {
 					setSelectedMovie(moviesList.find((m) => m.id === id));
 					window.scrollTo(0, 0);
 				}}
-			/> */}
-			{/* <Counter num={5} /> */}
+			/>
 		</div>
 	);
-};
+}
 
-export default App;
+export default MovieListPage;
