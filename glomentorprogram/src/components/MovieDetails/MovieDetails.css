@@ -118,3 +118,19 @@
     color: white;
     font-size: 17px;
 }
+
+.close-image-details {
+    position: absolute;
+    right: 10px;
+    top:50%;
+    color: white;
+    cursor: pointer;
+}
+
+.poster-image {
+    text-align: center;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

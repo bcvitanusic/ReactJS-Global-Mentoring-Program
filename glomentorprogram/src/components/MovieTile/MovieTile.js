@@ -13,9 +13,9 @@ function MovieTile({ moviesList, onSelectMovie }) {
 					return (
 						<MovieCard
 							key={movie.id}
-							url={movie.url}
-							name={movie.name}
-							year={movie.year}
+							url={movie.poster_path}
+							name={movie.title}
+							year={movie.release_date}
 							description={movie.description}
 							id={movie.id}
 							onSelectMovie={(id) => onSelectMovie(id)}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import './MovieListPage.css';
 import Header from '../Header/Header';
@@ -9,46 +9,96 @@ import MovieTile from '../MovieTile/MovieTile';
 import GenreList from '../../assets/utils';
 import moviesList from '../../assets/moviesList';
 
+const defaultPoster = '../../assets/images/default-movie.jpg';
+
 function MovieListPage() {
-	const [searchQuery, setSearchQuery] = useState('');
-	const [sortCriterio, setSortCriterio] = useState(0);
 	const [selectedGenre, setSelectedGenre] = useState('ALL');
 	const [selectedMovie, setSelectedMovie] = useState(null);
-	const [moviesListState, setMoviesListState] = useState(
-		moviesList.sort((a, b) => b.year - a.year)
-	);
+	const [moviesListState, setMoviesListState] = useState([]);
 	const [sortBy, setSortBy] = useState(0);
+	const [loading, setLoading] = useState(false);
 
 	const onSelect = (genre) => {
+		if (genre === 'ALL') {
+			getMoviesList();
+			return;
+		}
 		setSelectedGenre(genre.toUpperCase());
+		fetch(`http://localhost:4000/movies?filter=${genre}`)
+			.then((res) => res.json())
+			.then((data) => {
+				setMoviesListState(data.data);
+				setLoading(false);
+			});
 	};
 	const sortMovies = (id) => {
-		if (id === 0) {
-			setMoviesListState(moviesListState.sort((a, b) => b.year - a.year));
+		if (id === 1) {
+			fetch(`http://localhost:4000/movies?sortBy=title&sortOrder=desc`)
+				.then((res) => res.json())
+				.then((data) => {
+					setMoviesListState(data.data);
+				});
 		} else {
-			setMoviesListState(
-				moviesListState.sort((a, b) =>
-					a.name !== b.name ? (a.name < b.name ? -1 : 1) : 0
-				)
-			);
+			fetch(`http://localhost:4000/movies?sortBy=release_date&sortOrder=asc`)
+				.then((res) => res.json())
+				.then((data) => {
+					setMoviesListState(data.data);
+				});
 		}
 		setSortBy(id);
 	};
 
+	const getMoviesList = async () => {
+		setLoading(true);
+		fetch('http://localhost:4000/movies?sortBy=release_date&sortOrder=desc')
+			.then((response) => response.json())
+			.then((data) => {
+				if (data) {
+					setMoviesListState(data.data);
+					setLoading(false);
+				}
+			});
+	};
+
+	const searchMovies = (query) => {
+		setLoading(true);
+		fetch(`http://localhost:4000/movies?search=${query}&searchBy=title`)
+			.then((res) => res.json())
+			.then((data) => {
+				setMoviesListState(data.data);
+				setLoading(false);
+			});
+	};
+
+	useEffect(() => {
+		getMoviesList();
+	}, []);
+
 	return (
 		<div className='main-page'>
-			{!selectedMovie && <Header />}
+			{!selectedMovie && (
+				<Header
+					onSearch={(item) => {
+						searchMovies(item);
+					}}
+				/>
+			)}
 			{selectedMovie && (
 				<MovieDetails
-					url={selectedMovie.url}
-					name={selectedMovie.name}
-					rating={selectedMovie.rating}
-					description={selectedMovie.description}
-					year={selectedMovie.year}
-					duration={selectedMovie.duration}
-					longDdesc={selectedMovie.longDesc}
+					url={
+						selectedMovie.poster_path
+							? selectedMovie.poster_path
+							: defaultPoster
+					}
+					name={selectedMovie.title}
+					rating={selectedMovie.vote_average}
+					description={selectedMovie.tagline}
+					year={selectedMovie.release_date}
+					duration={selectedMovie.runtime}
+					longDdesc={selectedMovie.overview}
 					onReturn={() => {
 						setSelectedMovie(null);
+						getMoviesList();
 					}}
 				/>
 			)}
@@ -61,13 +111,15 @@ function MovieListPage() {
 				}}
 				sortBy={sortBy}
 			/>
-			<MovieTile
-				moviesList={moviesListState}
-				onSelectMovie={(id) => {
-					setSelectedMovie(moviesList.find((m) => m.id === id));
-					window.scrollTo(0, 0);
-				}}
-			/>
+			{!loading && (
+				<MovieTile
+					moviesList={moviesListState}
+					onSelectMovie={(id) => {
+						setSelectedMovie(moviesListState.find((m) => m.id === id));
+						window.scrollTo(0, 0);
+					}}
+				/>
+			)}
 		</div>
 	);
 }

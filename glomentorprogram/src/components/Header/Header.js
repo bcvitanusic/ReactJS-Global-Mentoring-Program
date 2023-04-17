@@ -2,13 +2,13 @@ import React from 'react';
 import './Header.css';
 import SearchForm from '../SearchForm/SearchForm';
 
-function Header() {
+function Header({ onSearch }) {
 	return (
 		<div className='app-header'>
 			<SearchForm
 				initialSearchQuery={'What do you want to watch?'}
 				onSearch={(searchQuery) => {
-					console.log(searchQuery);
+					onSearch(searchQuery);
 				}}
 			/>
 			<div className='header-top-addons'>
