@@ -22,27 +22,30 @@ export default {
 	},
 };
 
-const Template = (args) => <Dialog {...args} />;
-
-export const DialogStory = Template.bind({});
-
-DialogStory.args = {
-	title: 'Delete movie',
-	children: <p>Hello storybook</p>,
-};
-
-DialogStory.decorators = [
-	() => {
+export const DialogMovieForm = {
+	render: () => {
 		return (
-			<>
-				<Dialog>
-					<MovieForm initialMovieInfo={{}} />
-				</Dialog>
-				<Dialog>
-					<MovieForm initialMovieInfo={initialMovie} />
-				</Dialog>
-				<Dialog title={'Are you sure you want to delete movie?'} />
-			</>
+			<Dialog>
+				{' '}
+				<MovieForm initialMovieInfo={{}} />{' '}
+			</Dialog>
 		);
 	},
-];
+};
+
+export const DialogMovieFormWithInitialValue = {
+	render: () => {
+		return (
+			<Dialog>
+				{' '}
+				<MovieForm initialMovieInfo={initialMovie} />{' '}
+			</Dialog>
+		);
+	},
+};
+
+export const DialogDeleteMovie = {
+	render: () => {
+		return <Dialog title={'Are you sure you want to delete movie?'} />;
+	},
+};
