@@ -26,8 +26,7 @@ export const DialogMovieForm = {
 	render: () => {
 		return (
 			<Dialog>
-				{' '}
-				<MovieForm initialMovieInfo={{}} />{' '}
+				<MovieForm initialMovieInfo={{}} />
 			</Dialog>
 		);
 	},
@@ -37,8 +36,7 @@ export const DialogMovieFormWithInitialValue = {
 	render: () => {
 		return (
 			<Dialog>
-				{' '}
-				<MovieForm initialMovieInfo={initialMovie} />{' '}
+				<MovieForm initialMovieInfo={initialMovie} />
 			</Dialog>
 		);
 	},
