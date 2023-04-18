@@ -7,7 +7,6 @@ import GenreSelect from '../GenreSelect/GenreSelect';
 import MovieTile from '../MovieTile/MovieTile';
 
 import GenreList from '../../assets/utils';
-import moviesList from '../../assets/moviesList';
 
 const defaultPoster = '../../assets/images/default-movie.jpg';
 

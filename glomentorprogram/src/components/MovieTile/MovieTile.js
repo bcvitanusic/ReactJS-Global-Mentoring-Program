@@ -5,8 +5,8 @@ function MovieTile({ moviesList, onSelectMovie }) {
 	return (
 		<div className='movieTile'>
 			<div className='movies-found'>
-				<p>6</p>
-				<p> movies found</p>
+				<p>{moviesList.length}</p>
+				<p>movies found</p>
 			</div>
 			<div className='card-list'>
 				{moviesList.map((movie) => {
