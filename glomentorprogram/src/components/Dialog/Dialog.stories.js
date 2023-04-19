@@ -14,12 +14,7 @@ const initialMovie = {
 export default {
 	title: 'Dialog',
 	component: Dialog,
-	parameters: {
-		baxkgrounds: {
-			default: 'twitter',
-			values: [{ name: 'twitter', value: '#00aced' }],
-		},
-	},
+
 	decorators: [(story) => <div style={{ padding: '3rem' }}>{story()}</div>],
 	argTypes: {
 		onClose: {
