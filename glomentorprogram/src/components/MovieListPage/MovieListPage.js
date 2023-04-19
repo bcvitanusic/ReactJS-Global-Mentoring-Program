@@ -5,9 +5,9 @@ import Header from '../Header/Header';
 import MovieDetails from '../MovieDetails/MovieDetails';
 import GenreSelect from '../GenreSelect/GenreSelect';
 import MovieTile from '../MovieTile/MovieTile';
-
+import Dialog from '../Dialog/Dialog';
 import GenreList from '../../assets/utils';
-
+import MovieForm from '../MovieForm/MovieForm';
 const defaultPoster = '../../assets/images/default-movie.jpg';
 
 function MovieListPage() {
@@ -16,6 +16,7 @@ function MovieListPage() {
 	const [moviesListState, setMoviesListState] = useState([]);
 	const [sortBy, setSortBy] = useState(0);
 	const [loading, setLoading] = useState(false);
+	const [openAddMovie, setOpenAddMovie] = useState(false);
 
 	const onSelect = (genre) => {
 		if (genre === 'ALL') {
@@ -80,6 +81,9 @@ function MovieListPage() {
 					onSearch={(item) => {
 						searchMovies(item);
 					}}
+					openDialog={() => {
+						setOpenAddMovie(true);
+					}}
 				/>
 			)}
 			{selectedMovie && (
@@ -118,6 +122,15 @@ function MovieListPage() {
 						window.scrollTo(0, 0);
 					}}
 				/>
+			)}
+			{openAddMovie && (
+				<Dialog onClose={() => setOpenAddMovie(false)}>
+					<MovieForm
+						onSubmit={() => console.log('submitted')}
+						initialMovieInfo={{}}
+						onClose={() => setOpenAddMovie(false)}
+					/>
+				</Dialog>
 			)}
 		</div>
 	);

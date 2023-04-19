@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './Header.css';
 import SearchForm from '../SearchForm/SearchForm';
 
-function Header({ onSearch }) {
+function Header({ onSearch, openDialog }) {
 	return (
 		<div className='app-header'>
 			<SearchForm
