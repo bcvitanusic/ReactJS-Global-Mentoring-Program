@@ -7,6 +7,8 @@ import GenreList from './assets/utils.js';
 import MovieTile from './components/MovieTile/MovieTile';
 import moviesList from './assets/moviesList';
 import MovieDetails from './components/MovieDetails/MovieDetails';
+import MovieForm from './components/MovieForm/MovieForm';
+import Dialog from './components/Dialog/Dialog';
 
 const App = () => {
 	const [selectedGenre, setSelectedGenre] = useState('ALL');
@@ -15,6 +17,8 @@ const App = () => {
 	const [moviesListState, setMoviesListState] = useState(
 		moviesList.sort((a, b) => b.year - a.year)
 	);
+	const [openMovieForm, setOpenMovieForm] = useState(false);
+	const [openDialog, setOpenDialog] = useState(false);
 
 	const onSelect = (genre) => {
 		setSelectedGenre(genre.toUpperCase());
@@ -33,7 +37,20 @@ const App = () => {
 	};
 	return (
 		<div className='App'>
-			{!selectedMovie && <Header />}
+			<button onClick={() => setOpenDialog(true)}>Open dialog</button>
+			{openDialog && (
+				<Dialog title={'Dialog title'} onClose={() => setOpenDialog(false)}>
+					<MovieForm
+						initialMovieInfo={{}}
+						onClose={() => setOpenDialog(false)}
+						onSubmit={(movie) => {
+							setOpenDialog(false);
+							console.log(movie);
+						}}
+					/>
+				</Dialog>
+			)}
+			{!selectedMovie && <Header openDialog={() => setOpenMovieForm(true)} />}
 			{selectedMovie && (
 				<MovieDetails
 					url={selectedMovie.url}
@@ -64,6 +81,23 @@ const App = () => {
 					window.scrollTo(0, 0);
 				}}
 			/>
+			{openMovieForm && (
+				<MovieForm
+					initialMovieInfo={{
+						title: 'Terminator',
+						releaseDate: '2004',
+						movieUrl: 'url',
+						rating: '8.5',
+						genre: 'comedy',
+						runtime: '2h',
+						overview: 'overview',
+					}}
+					onClose={() => setOpenMovieForm(false)}
+					title={'EDIT MOVIE'}
+					onSubmit={(movieInfo) => console.log(movieInfo)}
+				/>
+			)}
+
 			{/* <Counter num={5} /> */}
 		</div>
 	);

@@ -13,4 +13,8 @@
   background-color: var(--color-gray-border);
 }
 
-
+.dialog-sth {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

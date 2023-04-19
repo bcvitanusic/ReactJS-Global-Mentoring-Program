@@ -1,0 +1,130 @@
+.dialog {   
+    background-color: var(--color-black);
+    position: absolute;
+    flex-direction: column;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    min-width: 70%;
+  }
+
+  .wrapper {
+    display: flex;   
+    flex-direction: column;
+    flex-wrap: wrap;
+    padding: 10px 50px;
+  }
+
+.close-dialog {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    color: var(--color-red);
+}
+
+.close-dialog:hover {
+    cursor: pointer;
+}
+
+.close-icon {
+}
+
+.title {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    color: white;
+    margin-top: 50px;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.item-placeholder {
+    text-transform: uppercase;
+    padding: 10px 0px;
+}
+
+.item-placeholder > p {
+    padding:0;
+    margin:0;
+    font-size: 16px;
+    color: var(--color-red);
+}
+
+.content-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 30px;
+}
+
+.content-row-item {
+    width: 100%;
+}
+
+.item-input > input {
+    background-color: var(--color-gray);
+    outline: none;
+    border:none;
+    min-height: 40px;
+    width: 100%;
+    color: white;
+    font-size: 20px;
+}
+
+
+.overview {
+    height: 150px; 
+    top: 10px;
+    left: 10px;
+    align-self: flex-start;
+}
+
+.footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 20px 0px;
+    gap:10px
+
+}
+
+.submit, .reset {
+    border: 1px solid var(--color-red);
+    text-transform: uppercase;
+    width: 160px;
+    padding: 10px 20px;
+}
+
+
+.reset {
+    background-color: var(--color-black);
+    color: var(--color-red);
+}
+
+.submit {
+    background-color: var(--color-red);
+    color: white;  
+    font-weight: bold;
+}
+
+.submit:hover {
+    border: 1px solid white;
+}
+
+.reset:hover {
+    border: 1px solid white;
+}
+
+.submit,.reset:hover {
+    cursor: pointer;
+    transition: 0.3s all;
+
+}
