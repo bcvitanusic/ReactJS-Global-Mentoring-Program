@@ -16,6 +16,8 @@ const App = () => {
 	const [moviesListState, setMoviesListState] = useState(
 		moviesList.sort((a, b) => b.year - a.year)
 	);
+	const [openMovieForm, setOpenMovieForm] = useState(false);
+	const [openDialog, setOpenDialog] = useState(false);
 
 	const onSelect = (genre) => {
 		setSelectedGenre(genre.toUpperCase());

@@ -35,9 +35,6 @@ function SearchForm({ initialSearchQuery, onSearch }) {
 						}}
 					/>
 				</div>
-				{/* <button className='search-button' onClick={() => onSearchPress()}>
-					<p>Search</p>
-				</button> */}
 				<ButtonSearch callBackFunc={() => onSearchPress()} />
 			</div>
 		</div>
