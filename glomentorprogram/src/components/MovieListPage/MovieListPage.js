@@ -64,7 +64,7 @@ function MovieListPage() {
 		return () => controller.abort();
 	};
 
-	const getMoviesList = async () => {
+	const getMoviesList = () => {
 		setLoading(true);
 		const controller = new AbortController();
 
