@@ -18,57 +18,83 @@ function MovieListPage() {
 	const [sortBy, setSortBy] = useState(0);
 	const [loading, setLoading] = useState(false);
 	const [openAddMovie, setOpenAddMovie] = useState(false);
+	const [error, setError] = useState(false);
 
 	const onSelect = (genre) => {
+		setSelectedGenre(genre.toUpperCase());
 		if (genre === 'ALL') {
 			getMoviesList();
 			return;
 		}
-		setSelectedGenre(genre.toUpperCase());
+		setLoading(true);
 		fetch(`http://localhost:4000/movies?filter=${genre}`)
 			.then((res) => res.json())
 			.then((data) => {
 				setMoviesListState(data.data);
-				setLoading(false);
-			});
+			})
+			.catch(() => setError(true))
+			.finally(() => setLoading(false));
 	};
 	const sortMovies = (id) => {
+		setLoading(true);
+		const controller = new AbortController();
+
 		if (id === 1) {
-			fetch(`http://localhost:4000/movies?sortBy=title&sortOrder=desc`)
+			fetch(`http://localhost:4000/movies?sortBy=title&sortOrder=desc`, {
+				signal: controller.signal,
+			})
 				.then((res) => res.json())
 				.then((data) => {
 					setMoviesListState(data.data);
-				});
+				})
+				.catch(() => setError(true))
+				.finally(() => setLoading(false));
 		} else {
-			fetch(`http://localhost:4000/movies?sortBy=release_date&sortOrder=asc`)
+			fetch(`http://localhost:4000/movies?sortBy=release_date&sortOrder=asc`, {
+				signal: controller.signal,
+			})
 				.then((res) => res.json())
 				.then((data) => {
 					setMoviesListState(data.data);
-				});
+				})
+				.catch(() => setError(true))
+				.finally(() => setLoading(false));
 		}
 		setSortBy(id);
+		return () => controller.abort();
 	};
 
 	const getMoviesList = async () => {
 		setLoading(true);
-		fetch('http://localhost:4000/movies?sortBy=release_date&sortOrder=desc')
+		const controller = new AbortController();
+
+		fetch('http://localhost:4000/movies?sortBy=release_date&sortOrder=desc', {
+			signal: controller.signal,
+		})
 			.then((response) => response.json())
 			.then((data) => {
-				if (data) {
-					setMoviesListState(data.data);
-					setLoading(false);
-				}
-			});
+				setMoviesListState(data.data);
+			})
+			.catch(() => setError(true))
+			.finally(() => setLoading(false));
+
+		return () => controller.abort();
 	};
 
 	const searchMovies = (query) => {
 		setLoading(true);
-		fetch(`http://localhost:4000/movies?search=${query}&searchBy=title`)
+		const controller = new AbortController();
+
+		fetch(`http://localhost:4000/movies?search=${query}&searchBy=title`, {
+			signal: controller.signal,
+		})
 			.then((res) => res.json())
 			.then((data) => {
 				setMoviesListState(data.data);
-				setLoading(false);
-			});
+			})
+			.catch(() => setError(true))
+			.finally(() => setLoading(false));
+		return () => controller.abort();
 	};
 
 	useEffect(() => {
@@ -133,6 +159,12 @@ function MovieListPage() {
 					/>
 				</Dialog>
 			)}
+			{loading && (
+				<div className='loading-wrapper'>
+					<div className='loading-spinner' />
+				</div>
+			)}
+			{error && <p>Error loading data...</p>}
 		</div>
 	);
 }
