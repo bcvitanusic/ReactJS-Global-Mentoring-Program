@@ -5,16 +5,16 @@ const mockedOnSelect = jest.fn();
 const testList = [
 	{
 		id: 0,
-		name: 'Pulp Fiction',
+		title: 'Pulp Fiction',
 		description: 'Action & Adventure',
-		year: 2004,
+		release_date: 2004,
 		longDesc: 'long desc',
 	},
 	{
 		id: 1,
-		name: 'Bohemian Rapsody',
+		title: 'Bohemian Rapsody',
 		description: 'Drama, Biography, Music',
-		year: 2003,
+		release_date: 2003,
 		longDesc:
 			'Jules Winnfield (Samuel L. Jackson) and Vincent Vega (John Travolta) are two hit men who are out to retrieve a suitcase stolen from their employer, mob boss Marsellus Wallace (Ving Rhames). Wallace has also asked Vincent to take his wife Mia (Uma Thurman) out a few days later when Wallace himself will be out of town. Butch Coolidge (Bruce Willis) is an aging boxer who is paid by Wallace to lose his fight.	The lives of these seemingly unrelated people are woven together comprising of a series of funny, bizarre and uncalled-for incidents.—Soumitra',
 	},
