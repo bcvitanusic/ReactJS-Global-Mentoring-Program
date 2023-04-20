@@ -14,8 +14,6 @@ function MovieForm({ onClose, initialMovieInfo, onSubmit }) {
 		overview: initialMovieInfo.overview ?? '',
 	});
 
-	console.log(movieInfo);
-
 	return (
 		<div className='dialog'>
 			<div className='wrapper'>

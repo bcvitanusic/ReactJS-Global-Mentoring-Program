@@ -18,7 +18,6 @@ context('MovieList', () => {
 			'GET',
 			'http://localhost:4000/movies?search=coco&searchBy=title'
 		).then((response) => {
-			console.log(response);
 			expect(response.status).to.eq(200);
 			expect(response.body.data).length.to.be.greaterThan(1);
 		});
@@ -28,7 +27,6 @@ context('MovieList', () => {
 			'GET',
 			'http://localhost:4000/movies?searchBy=title&filter=comedy'
 		).then((response) => {
-			console.log(response);
 			expect(response.status).to.eq(200);
 			expect(response.body.data).length.to.be.greaterThan(1);
 		});

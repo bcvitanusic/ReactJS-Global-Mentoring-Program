@@ -8,6 +8,7 @@ import MovieTile from '../MovieTile/MovieTile';
 import Dialog from '../Dialog/Dialog';
 import GenreList from '../../assets/utils';
 import MovieForm from '../MovieForm/MovieForm';
+
 const defaultPoster = '../../assets/images/default-movie.jpg';
 
 function MovieListPage() {
