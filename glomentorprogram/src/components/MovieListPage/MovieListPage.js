@@ -98,7 +98,7 @@ function MovieListPage() {
 					rating={selectedMovie.vote_average}
 					description={selectedMovie.tagline}
 					year={selectedMovie.release_date}
-					duration={selectedMovie.runtime}
+					// duration={selectedMovie.runtime}
 					longDdesc={selectedMovie.overview}
 					onReturn={() => {
 						setSelectedMovie(null);

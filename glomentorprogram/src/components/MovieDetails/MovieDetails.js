@@ -9,7 +9,7 @@ function MovieDetails({
 	rating,
 	description,
 	year,
-	duration,
+
 	longDdesc,
 	onReturn,
 }) {
@@ -24,7 +24,7 @@ function MovieDetails({
 					<SearchIcon size={25} />
 				</div>
 			</div>
-			<div className='content'>
+			<div className='content-movie'>
 				<div onClick={() => onReturn()} className='close-image-details'>
 					[close]
 				</div>
@@ -51,7 +51,7 @@ function MovieDetails({
 					</div>
 					<div className='year-duration'>
 						<p>{year}</p>
-						<p>{duration}min</p>
+						{/* <p>{duration}min</p> */}
 					</div>
 					<div className='desc'>{longDdesc}</div>
 				</div>
