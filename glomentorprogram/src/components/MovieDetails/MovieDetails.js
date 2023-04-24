@@ -3,16 +3,7 @@ import './MovieDetails.css';
 
 import { VscSearch as SearchIcon } from 'react-icons/vsc';
 
-function MovieDetails({
-	url,
-	name,
-	rating,
-	description,
-	year,
-
-	longDdesc,
-	onReturn,
-}) {
+function MovieDetails({ selectedMovie, onReturn }) {
 	return (
 		<div className='movie-details'>
 			<div className='header'>
@@ -30,7 +21,7 @@ function MovieDetails({
 				</div>
 				<img
 					className='poster-image'
-					src={url}
+					src={selectedMovie.poster_path}
 					alt='Poster'
 					width={270}
 					height={410}
@@ -39,21 +30,20 @@ function MovieDetails({
 					<div className='movie-title'>
 						<div className='heading'>
 							<p name='title' className='title'>
-								{name}
+								{selectedMovie.title}
 							</p>
 							<div className='rating'>
-								<p>{rating}</p>
+								<p>{selectedMovie.vote_average}</p>
 							</div>
 						</div>
 						<div className='small-desc'>
-							<p>{description}</p>
+							<p>{selectedMovie.tagline}</p>
 						</div>
 					</div>
 					<div className='year-duration'>
-						<p>{year}</p>
-						{/* <p>{duration}min</p> */}
+						<p>{selectedMovie.release_date}</p>
 					</div>
-					<div className='desc'>{longDdesc}</div>
+					<div className='desc'>{selectedMovie.overview}</div>
 				</div>
 			</div>
 		</div>
