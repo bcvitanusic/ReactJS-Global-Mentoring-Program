@@ -13,7 +13,6 @@ describe('Movie Details', () => {
 				rating={8.4}
 				description={'description for movie'}
 				year={1984}
-				duration={'2h 30min'}
 				longDdesc={'Long description'}
 				onReturn={mockedFunc}
 			/>
@@ -31,8 +30,6 @@ describe('Movie Details', () => {
 		expect(desc).toBeInTheDocument();
 		const year = screen.getByText(/1984/i);
 		expect(year).toBeInTheDocument();
-		const duration = screen.getByText(/2h 30min/i);
-		expect(duration).toBeInTheDocument();
 		const longdesc = screen.getByText(/Long description/i);
 		expect(longdesc).toBeInTheDocument();
 	});

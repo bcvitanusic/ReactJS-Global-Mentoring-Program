@@ -11,7 +11,13 @@ const MovieCard = ({
 }) => {
 	return (
 		<div className='movie-card' onClick={() => onSelectMovie(id)}>
-			<img src={url} alt={name} width={400} height={550} />
+			<img
+				className='movie-poster'
+				src={url}
+				alt={name}
+				width={400}
+				height={550}
+			/>
 			<div className='card-heading'>
 				<p>{name}</p>
 				<p className='year'>{year}</p>

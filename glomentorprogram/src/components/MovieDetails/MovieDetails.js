@@ -9,7 +9,7 @@ function MovieDetails({
 	rating,
 	description,
 	year,
-	duration,
+
 	longDdesc,
 	onReturn,
 }) {
@@ -24,8 +24,17 @@ function MovieDetails({
 					<SearchIcon size={25} />
 				</div>
 			</div>
-			<div className='content'>
-				<img src={url} alt='slika' width={270} height={410} />
+			<div className='content-movie'>
+				<div onClick={() => onReturn()} className='close-image-details'>
+					[close]
+				</div>
+				<img
+					className='poster-image'
+					src={url}
+					alt='Poster'
+					width={270}
+					height={410}
+				/>
 				<div className='movie-info'>
 					<div className='movie-title'>
 						<div className='heading'>
@@ -42,7 +51,7 @@ function MovieDetails({
 					</div>
 					<div className='year-duration'>
 						<p>{year}</p>
-						<p>{duration}</p>
+						{/* <p>{duration}min</p> */}
 					</div>
 					<div className='desc'>{longDdesc}</div>
 				</div>

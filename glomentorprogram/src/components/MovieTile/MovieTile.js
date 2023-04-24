@@ -5,17 +5,17 @@ function MovieTile({ moviesList, onSelectMovie }) {
 	return (
 		<div className='movieTile'>
 			<div className='movies-found'>
-				<p>6</p>
-				<p> movies found</p>
+				<p>{moviesList.length}</p>
+				<p>movies found</p>
 			</div>
 			<div className='card-list'>
 				{moviesList.map((movie) => {
 					return (
 						<MovieCard
 							key={movie.id}
-							url={movie.url}
-							name={movie.name}
-							year={movie.year}
+							url={movie.poster_path}
+							name={movie.title}
+							year={movie.release_date}
 							description={movie.description}
 							id={movie.id}
 							onSelectMovie={(id) => onSelectMovie(id)}
