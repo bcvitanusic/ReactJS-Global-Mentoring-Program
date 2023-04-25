@@ -1,14 +1,22 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import './Header.css';
 import SearchForm from '../SearchForm/SearchForm';
+import { useSearchParams } from 'react-router-dom';
 
-function Header({ onSearch, openDialog, initialSearchQuery }) {
+function Header({ openDialog }) {
+	let [searchParams, setSearchParams] = useSearchParams();
+
+	useEffect(() => {}, [searchParams.get('search')]);
+	let initialQuery =
+		searchParams.get('search') ?? 'What do you want to search?';
+
 	return (
 		<div className='app-header'>
 			<SearchForm
-				initialSearchQuery={initialSearchQuery}
+				initialSearchQuery={initialQuery}
 				onSearch={(searchQuery) => {
-					onSearch(searchQuery === '' ? '' : searchQuery);
+					searchParams.set('search', searchQuery);
+					setSearchParams(searchParams);
 				}}
 			/>
 			<div className='header-top-addons'>

@@ -5,7 +5,6 @@ import './SearchForm.css';
 function SearchForm({ initialSearchQuery, onSearch }) {
 	const [searchQuery, setSearchQuery] = useState(initialSearchQuery);
 	const onSearchPress = () => {
-		setSearchQuery('What do you want to search?');
 		onSearch(searchQuery);
 	};
 	return (

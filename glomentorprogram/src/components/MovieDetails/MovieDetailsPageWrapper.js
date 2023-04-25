@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import MovieDetails from './MovieDetails';
-import { useParams } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { useParams, useSearchParams, useNavigate } from 'react-router-dom';
 
-function MovieDetailsPageWrapper({ onReturn }) {
+function MovieDetailsPageWrapper() {
+	let [searchParams] = useSearchParams();
+
 	const [selectedMovie, setSelectedMovie] = useState(null);
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(false);
@@ -11,9 +12,11 @@ function MovieDetailsPageWrapper({ onReturn }) {
 	const navigate = useNavigate();
 
 	const getMovieById = (id) => {
+		let search = searchParams.get('search') || '';
+
 		const controller = new AbortController();
 		setLoading(true);
-		fetch(`http://localhost:4000/movies/${id}`, {
+		fetch(`http://localhost:4000/movies/${id}&search=${search}searchBy=title`, {
 			signal: controller.signal,
 		})
 			.then((response) => response.json())

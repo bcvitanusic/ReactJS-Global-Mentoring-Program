@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useSearchParams, Outlet } from 'react-router-dom';
+import { useSearchParams, Outlet } from 'react-router-dom';
 import './MovieListPage.css';
 import GenreSelect from '../GenreSelect/GenreSelect';
 import MovieTile from '../MovieTile/MovieTile';
@@ -8,7 +8,7 @@ import GenreList from '../../assets/utils';
 import MovieForm from '../MovieForm/MovieForm';
 import { useNavigate } from 'react-router-dom';
 
-function MovieListPage({ itemSearch, openDialog, closeDialog }) {
+function MovieListPage({ openDialog, closeDialog }) {
 	let [searchParams, setSearchParams] = useSearchParams();
 	const [selectedGenre, setSelectedGenre] = useState(
 		searchParams.get('filter')
@@ -24,6 +24,7 @@ function MovieListPage({ itemSearch, openDialog, closeDialog }) {
 	const navigate = useNavigate();
 
 	const onSelect = (genre) => {
+		let itemSearch = searchParams.get('search');
 		setLoading(true);
 		searchParams.set('filter', genre === 'ALL' ? '' : genre.toLowerCase());
 		setSearchParams(searchParams);
@@ -53,6 +54,7 @@ function MovieListPage({ itemSearch, openDialog, closeDialog }) {
 	const sortMovies = (sortBy) => {
 		setLoading(true);
 		const controller = new AbortController();
+		searchParams.set('search', '');
 		searchParams.set('sortBy', sortBy);
 		setSearchParams(searchParams);
 
@@ -69,13 +71,17 @@ function MovieListPage({ itemSearch, openDialog, closeDialog }) {
 		setSortBy(sortBy);
 		return () => controller.abort();
 	};
-
 	const getMoviesList = () => {
+		console.log('here');
+		console.log('SP from getMoviesList', searchParams);
+		let itemSearch = searchParams.get('search');
+		let filter = searchParams.get('filter');
+
 		setLoading(true);
 		const controller = new AbortController();
 
 		fetch(
-			`http://localhost:4000/movies?sortBy=${sortBy}&sortOrder=desc&search=${itemSearch}&searchBy=title`,
+			`http://localhost:4000/movies?sortBy=${sortBy}&sortOrder=desc&search=${itemSearch}&searchBy=title&filter=${filter}`,
 			{
 				signal: controller.signal,
 			}
@@ -83,6 +89,7 @@ function MovieListPage({ itemSearch, openDialog, closeDialog }) {
 			.then((response) => response.json())
 			.then((data) => {
 				setMoviesListState(data.data);
+				console.log(data);
 			})
 			.catch(() => setError(true))
 			.finally(() => setLoading(false));
@@ -90,9 +97,9 @@ function MovieListPage({ itemSearch, openDialog, closeDialog }) {
 		return () => controller.abort();
 	};
 
-	const searchMovies = (query) => {
-		searchParams.set('search', query);
-		setSearchParams(searchParams);
+	const searchMovies = () => {
+		let query = searchParams.get('search') || '';
+
 		setLoading(true);
 		const controller = new AbortController();
 
@@ -113,8 +120,8 @@ function MovieListPage({ itemSearch, openDialog, closeDialog }) {
 	}, []);
 
 	useEffect(() => {
-		searchMovies(itemSearch);
-	}, [itemSearch]);
+		searchMovies();
+	}, [searchParams.get('search')]);
 
 	return (
 		<div className='main-page'>

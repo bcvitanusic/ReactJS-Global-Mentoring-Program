@@ -6,7 +6,6 @@ import Header from './components/Header/Header';
 import MovieDetailsPageWrapper from './components/MovieDetails/MovieDetailsPageWrapper';
 
 const App = () => {
-	const [searchQuery, setSearchQuery] = useState('');
 	const [openAddMovie, setOpenAddMovie] = useState(false);
 
 	return (
@@ -17,7 +16,6 @@ const App = () => {
 						path='/'
 						element={
 							<MovieListPage
-								itemSearch={searchQuery}
 								openDialog={openAddMovie}
 								closeDialog={() => setOpenAddMovie(false)}
 							/>
@@ -27,13 +25,9 @@ const App = () => {
 							path='/'
 							element={
 								<Header
-									onSearch={(item) => {
-										setSearchQuery(item);
-									}}
 									openDialog={() => {
 										setOpenAddMovie(true);
 									}}
-									initialSearchQuery={searchQuery}
 								/>
 							}
 						/>
