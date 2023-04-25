@@ -12,11 +12,11 @@ function MovieDetailsPageWrapper() {
 	const navigate = useNavigate();
 
 	const getMovieById = (id) => {
-		let search = searchParams.get('search') || '';
+		searchParams.delete('search');
 
 		const controller = new AbortController();
 		setLoading(true);
-		fetch(`http://localhost:4000/movies/${id}&search=${search}searchBy=title`, {
+		fetch(`http://localhost:4000/movies/${id}`, {
 			signal: controller.signal,
 		})
 			.then((response) => response.json())
