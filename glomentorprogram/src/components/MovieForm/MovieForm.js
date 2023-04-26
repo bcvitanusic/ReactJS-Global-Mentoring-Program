@@ -2,146 +2,180 @@
 import React, { useState } from 'react';
 import './MovieForm.css';
 import { AiFillCloseCircle as CloseIcon } from 'react-icons/ai';
+import { Formik, Field, Form } from 'formik';
+import * as Yup from 'yup';
 
-function MovieForm({ onClose, initialMovieInfo, onSubmit }) {
-	const [movieInfo, setMovieInfo] = useState({
-		title: initialMovieInfo.title ?? '',
-		releaseDate: initialMovieInfo.releaseDate ?? '',
-		movieUrl: initialMovieInfo.movieUrl ?? '',
-		rating: initialMovieInfo.rating ?? '',
-		genre: initialMovieInfo.genre ?? '',
-		runtime: initialMovieInfo.runtime ?? '',
-		overview: initialMovieInfo.overview ?? '',
-	});
+const validationSchema = Yup.object().shape({
+	title: Yup.string().required(),
+	releaseDate: Yup.date(),
+	movieUrl: Yup.string(),
+	rating: Yup.number().required(),
+	genre: Yup.mixed().oneOf(['comedy', 'horror', 'documentary', 'crime']),
+	runtime: Yup.number().required(),
+	overview: Yup.string(),
+});
 
+function MovieForm({ onClose, initialMovieInfo, onSubmit, submitValues }) {
 	return (
 		<div className='dialog'>
-			<div className='wrapper'>
-				<div aria-label='close-form' className='close-dialog' onClick={onClose}>
-					<CloseIcon size={35} className='close-icon' />
-				</div>
-				<div className='title'>Add movie</div>
-				<div className='content'>
-					<div className='content-row'>
-						<div className='content-row-item'>
-							<div className='item-placeholder'>
-								<p>Title</p>
+			<Formik
+				initialValues={{
+					title: initialMovieInfo.title ?? '',
+					releaseDate: initialMovieInfo.releaseDate ?? '',
+					movieUrl: initialMovieInfo.movieUrl ?? '',
+					rating: initialMovieInfo.rating ?? '',
+					genre: initialMovieInfo.genre ?? '',
+					runtime: initialMovieInfo.runtime ?? '',
+					overview: initialMovieInfo.overview ?? '',
+				}}
+				validationSchema={validationSchema}
+				onSubmit={(values, errors, resetForm) => {}}
+			>
+				{({
+					resetForm,
+					errors,
+					touched,
+					validate,
+					values,
+					isSubmitting,
+					handleChange,
+				}) => {
+					return (
+						<Form onChange={handleChange} className='content'>
+							<div
+								aria-label='close-form'
+								className='close-dialog'
+								onClick={onClose}
+							>
+								<CloseIcon size={35} className='close-icon' />
 							</div>
-							<div className='item-input'>
-								<input
-									type={'text'}
-									onChange={(e) =>
-										setMovieInfo({ ...movieInfo, title: e.target.value })
-									}
-									value={movieInfo.title}
-								/>
-							</div>
-						</div>
+							<div className='title'>Add movie</div>
 
-						<div className='content-row-item'>
-							<div className='item-placeholder'>
-								<p>Release Date</p>
+							<div className='content-row'>
+								<div className='content-row-item'>
+									<label className={`item-placeholder`} htmlFor='title'>
+										Title
+									</label>
+
+									<Field
+										className={`item-input ${errors.title && 'error-input'}`}
+										id='title'
+										name='title'
+									/>
+								</div>
+								<div className='content-row-item'>
+									<label className='item-placeholder' htmlFor='releaseDate'>
+										Release Date
+									</label>
+									<Field
+										className='item-input'
+										id='releaseDate'
+										name='releaseDate'
+									/>
+								</div>
 							</div>
-							<div className='item-input'>
-								<input
-									type={'text'}
-									onChange={(e) =>
-										setMovieInfo({ ...movieInfo, releaseDate: e.target.value })
-									}
-									value={movieInfo.releaseDate}
-								/>
+
+							<div className='content-row'>
+								<div className='content-row-item'>
+									<label className='item-placeholder' htmlFor='movieUrl'>
+										URL
+									</label>
+									<Field
+										className={`item-input ${errors.title && 'error-input'}`}
+										id='movieUrl'
+										name='movieUrl'
+									/>
+								</div>
+								<div className='content-row-item'>
+									<label className='item-placeholder' htmlFor='rating'>
+										Rating
+									</label>
+									<Field
+										className={`item-input ${errors.title && 'error-input'}`}
+										id='rating'
+										name='rating'
+									/>
+								</div>
 							</div>
-						</div>
-					</div>
-					<div className='content-row'>
-						<div className='content-row-item'>
-							<div className='item-placeholder'>
-								<p>Movie Url</p>
+
+							<div className='content-row'>
+								<div className='content-row-item'>
+									<label className='item-placeholder' htmlFor='genre'>
+										Genre
+									</label>
+									{/* <Field className='item-input' id='genre' name='genre' /> */}
+									<Field
+										className={`item-input ${
+											errors.title && 'error-input'
+										} genre-option`}
+										as='select'
+										name='genre'
+									>
+										<option className='genre-option' value='-'>
+											-
+										</option>
+										<option className='genre-option' value='Comedy'>
+											Comedy
+										</option>
+
+										<option className='genre-option' value='Horror'>
+											Horror
+										</option>
+
+										<option className='genre-option' value='Documentary'>
+											Documentary
+										</option>
+										<option className='genre-option' value='Crime'>
+											Crime
+										</option>
+									</Field>
+								</div>
+								<div className='content-row-item'>
+									<label className='item-placeholder' htmlFor='runtime'>
+										Runtime
+									</label>
+									<Field
+										className={`item-input ${errors.title && 'error-input'}`}
+										id='runtime'
+										name='runtime'
+									/>
+								</div>
 							</div>
-							<div className='item-input'>
-								<input
-									type={'text'}
-									onChange={(e) =>
-										setMovieInfo({ ...movieInfo, movieUrl: e.target.value })
-									}
-									value={movieInfo.movieUrl}
-								/>
+
+							<div className='content-row'>
+								<div className='content-row-item'>
+									<label className='item-placeholder' htmlFor='overview'>
+										Overview
+									</label>
+									<Field
+										component='textarea'
+										className='item-input overview'
+										id='overview'
+										name='overview'
+									/>
+								</div>
 							</div>
-						</div>
-						<div className='content-row-item'>
-							<div className='item-placeholder'>
-								<p>Rating</p>
+							<div className='footer'>
+								<button className='reset' onClick={() => resetForm()}>
+									Reset
+								</button>
+								<button
+									disabled={isSubmitting}
+									type='button'
+									className='submit'
+									onClick={() => {
+										onSubmit(values);
+										resetForm();
+										onClose();
+									}}
+								>
+									Submit
+								</button>
 							</div>
-							<div className='item-input'>
-								<input
-									type={'text'}
-									onChange={(e) =>
-										setMovieInfo({ ...movieInfo, rating: e.target.value })
-									}
-									value={movieInfo.rating}
-								/>
-							</div>
-						</div>
-					</div>
-					<div className='content-row'>
-						<div className='content-row-item'>
-							<div className='item-placeholder'>
-								<p>Genre</p>
-							</div>
-							<div className='item-input'>
-								<input
-									type={'text'}
-									onChange={(e) =>
-										setMovieInfo({ ...movieInfo, genre: e.target.value })
-									}
-									value={movieInfo.genre}
-								/>
-							</div>
-						</div>
-						<div className='content-row-item'>
-							<div className='item-placeholder'>
-								<p>Runtime</p>
-							</div>
-							<div className='item-input'>
-								<input
-									type={'text'}
-									onChange={(e) =>
-										setMovieInfo({ ...movieInfo, runtime: e.target.value })
-									}
-									value={movieInfo.runtime}
-								/>
-							</div>
-						</div>
-					</div>
-					<div className='content-row'>
-						<div className='content-row-item'>
-							<div className='item-placeholder'>
-								<p>Overview</p>
-							</div>
-							<div className='item-input'>
-								<input
-									type={'text'}
-									className={'overview'}
-									onChange={(e) =>
-										setMovieInfo({ ...movieInfo, overview: e.target.value })
-									}
-									value={movieInfo.overview}
-								/>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div className='footer'>
-					<button className='reset'>Reset</button>
-					<button
-						type={'submit'}
-						className='submit'
-						onClick={() => onSubmit(movieInfo)}
-					>
-						Submit
-					</button>
-				</div>
-			</div>
+						</Form>
+					);
+				}}
+			</Formik>
 		</div>
 	);
 }

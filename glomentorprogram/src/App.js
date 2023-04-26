@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useNavigate, useLocation } from 'react-router-dom';
 import './App.css';
 import MovieListPage from './components/MovieListPage/MovieListPage';
 import { Routes, Route } from 'react-router-dom';
 import Header from './components/Header/Header';
 import MovieDetailsPageWrapper from './components/MovieDetails/MovieDetailsPageWrapper';
+import SearchForm from './components/SearchForm/SearchForm';
+import MovieForm from './components/MovieForm/MovieForm';
+import Dialog from './components/Dialog/Dialog';
+import { BsFillCheckCircleFill as MovieAddedIcon } from 'react-icons/bs';
 
 const App = () => {
 	let [searchParams, setSearchParams] = useSearchParams();
@@ -24,6 +28,10 @@ const App = () => {
 	const [searchQuery, setSearchQuery] = useState(
 		searchParams.get('search') ? searchParams.get('search') : ''
 	);
+	const [openAddMovieDialog, setOpenAddMovieDialog] = useState(false);
+	const [openConfrmationDialog, setOpenConfimationDialog] = useState(false);
+	const navigate = useNavigate();
+	const location = useLocation();
 
 	const onSelect = (genre) => {
 		searchParams.delete('search');
@@ -131,7 +139,36 @@ const App = () => {
 		return () => controller.abort();
 	};
 
+	const addNewMovie = async (values) => {
+		const endPoint = 'http://localhost:4000/movies';
+
+		const options = {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				title: values.title,
+				vote_average: parseInt(values.rating),
+				release_date: values.releaseDate,
+				poster_path: values.movieUrl,
+				overview: values.overview,
+				runtime: parseInt(values.runtime),
+				genres: [values.genre],
+			}),
+		};
+
+		const response = await fetch(endPoint, options);
+		const jsonRes = await response.json();
+		if (!jsonRes.messages) {
+			setOpenConfimationDialog(true);
+		}
+	};
+
 	useEffect(() => {
+		if (location.pathname === '/new') {
+			setOpenAddMovieDialog(true);
+		}
 		getMoviesList();
 	}, []);
 
@@ -170,15 +207,64 @@ const App = () => {
 									searchMovies(searchQuery);
 								}}
 								openDialog={() => {
-									setOpenAddMovie(true);
+									setOpenAddMovieDialog(true);
 								}}
 								initialQuery={searchQuery}
 							/>
 						}
-					/>
+					>
+						<Route
+							path='/'
+							element={
+								<SearchForm
+									initialSearchQuery={searchQuery}
+									onSearch={(query) => {
+										searchMovies(query);
+									}}
+								/>
+							}
+						/>
+						{openAddMovieDialog && (
+							<Route
+								path='/new'
+								element={
+									<Dialog
+										onClose={() => {
+											navigate('/');
+											setOpenAddMovieDialog(false);
+										}}
+									>
+										<MovieForm
+											onSubmit={(values) => addNewMovie(values)}
+											initialMovieInfo={{}}
+											onClose={() => {
+												navigate('/');
+												setOpenAddMovieDialog(false);
+											}}
+										/>
+									</Dialog>
+								}
+							/>
+						)}
+					</Route>
 					<Route path=':movieId' element={<MovieDetailsPageWrapper />} />
 				</Route>
 			</Routes>
+
+			{openConfrmationDialog && (
+				<Dialog
+					onClose={() => setOpenConfimationDialog(false)}
+					className='dialog-sth'
+				>
+					<div className='added-movie'>
+						<MovieAddedIcon size={70} className='icon-success' />
+						<p className='added-title'>Congratulations</p>
+						<p className='added-content'>
+							The movie has been added to database successfully
+						</p>
+					</div>
+				</Dialog>
+			)}
 
 			{/* <Counter num={5} /> */}
 		</div>

@@ -1,11 +1,9 @@
 import React from 'react';
-import { useSearchParams, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import './MovieListPage.css';
 import GenreSelect from '../GenreSelect/GenreSelect';
 import MovieTile from '../MovieTile/MovieTile';
-import Dialog from '../Dialog/Dialog';
 import GenreList from '../../assets/utils';
-import MovieForm from '../MovieForm/MovieForm';
 import { useNavigate } from 'react-router-dom';
 
 function MovieListPage({
@@ -42,15 +40,7 @@ function MovieListPage({
 					}}
 				/>
 			)}
-			{openDialog && (
-				<Dialog onClose={() => closeDialog()}>
-					<MovieForm
-						onSubmit={() => console.log('submitted')}
-						initialMovieInfo={{}}
-						onClose={() => closeDialog()}
-					/>
-				</Dialog>
-			)}
+
 			{loading && (
 				<div className='loading-wrapper'>
 					<div className='loading-spinner' />
