@@ -15,7 +15,7 @@ const validationSchema = Yup.object().shape({
 	overview: Yup.string(),
 });
 
-function MovieForm({ onClose, initialMovieInfo, onSubmit, submitValues }) {
+function MovieForm({ onClose, initialMovieInfo, onSubmit }) {
 	return (
 		<div className='dialog'>
 			<Formik
@@ -103,7 +103,6 @@ function MovieForm({ onClose, initialMovieInfo, onSubmit, submitValues }) {
 									<label className='item-placeholder' htmlFor='genre'>
 										Genre
 									</label>
-									{/* <Field className='item-input' id='genre' name='genre' /> */}
 									<Field
 										className={`item-input ${
 											errors.title && 'error-input'
@@ -112,7 +111,7 @@ function MovieForm({ onClose, initialMovieInfo, onSubmit, submitValues }) {
 										name='genre'
 									>
 										<option className='genre-option' value='-'>
-											-
+											Select genre
 										</option>
 										<option className='genre-option' value='Comedy'>
 											Comedy
@@ -164,9 +163,10 @@ function MovieForm({ onClose, initialMovieInfo, onSubmit, submitValues }) {
 									type='button'
 									className='submit'
 									onClick={() => {
-										onSubmit(values);
-										resetForm();
-										onClose();
+										if (Object.keys(errors).length === 0) {
+											onSubmit(values);
+											resetForm();
+										}
 									}}
 								>
 									Submit
