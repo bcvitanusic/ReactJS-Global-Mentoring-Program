@@ -39,17 +39,15 @@ context('MovieList', () => {
 				search: 'coco',
 			},
 		}).then((res) => {
-			cy.log(res);
+			expect(res.body.data.length).to.equal(2);
 		});
 	});
-	it('test cy.intercept', () => {
-		cy.intercept(
-			{
-				url: 'http://localhost:4000/movies/354912',
-			},
-			(req) => {
-				cy.log(req.url);
-			}
-		);
+	it('test get one movie', () => {
+		cy.request({
+			method: 'GET',
+			url: 'http://localhost:4000/movies/354912',
+		}).then((res) => {
+			expect(res.body.title).to.equal('Coco');
+		});
 	});
 });
