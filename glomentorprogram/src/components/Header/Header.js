@@ -8,12 +8,6 @@ function Header({ openDialog, initialQuery, onSearch }) {
 
 	return (
 		<div className='app-header'>
-			{/* <SearchForm
-				initialSearchQuery={initialQuery}
-				onSearch={(searchQuery) => {
-					onSearch(searchQuery);
-				}}
-			/> */}
 			<Outlet />
 			<div className='header-top-addons'>
 				<div className='logo'>
