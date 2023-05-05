@@ -5,7 +5,6 @@ import './SearchForm.css';
 function SearchForm({ initialSearchQuery, onSearch }) {
 	const [searchQuery, setSearchQuery] = useState(initialSearchQuery);
 	const onSearchPress = () => {
-		setSearchQuery(initialSearchQuery);
 		onSearch(searchQuery);
 	};
 	return (
@@ -26,11 +25,6 @@ function SearchForm({ initialSearchQuery, onSearch }) {
 						onKeyPress={(e) => {
 							if (e.key === 'Enter') {
 								onSearchPress();
-							}
-						}}
-						onBlur={() => {
-							if (searchQuery === '') {
-								setSearchQuery(initialSearchQuery);
 							}
 						}}
 					/>

@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './Header.css';
 import SearchForm from '../SearchForm/SearchForm';
 
-function Header({ onSearch, openDialog }) {
+function Header({ openDialog, initialQuery, onSearch }) {
 	return (
 		<div className='app-header'>
 			<SearchForm
-				initialSearchQuery={'What do you want to watch?'}
+				initialSearchQuery={initialQuery}
 				onSearch={(searchQuery) => {
 					onSearch(searchQuery);
 				}}
