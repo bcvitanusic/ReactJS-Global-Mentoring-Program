@@ -29,9 +29,12 @@ const App = () => {
 		searchParams.get('search') ? searchParams.get('search') : ''
 	);
 	const [openAddMovieDialog, setOpenAddMovieDialog] = useState(false);
+	const [selectedMovie, setSelectedMovie] = useState(null);
 	const [openConfrmationDialog, setOpenConfimationDialog] = useState(false);
 	const navigate = useNavigate();
 	const location = useLocation();
+
+	const [openEdit, setOpenEdit] = useState(false);
 
 	const onSelect = (genre) => {
 		searchParams.delete('search');
@@ -159,6 +162,34 @@ const App = () => {
 		};
 
 		const response = await fetch(endPoint, options);
+
+		const jsonRes = await response.json();
+		if (!jsonRes.messages) {
+			setOpenConfimationDialog(true);
+		}
+	};
+
+	const editMovie = async (values) => {
+		const endPoint = 'http://localhost:4000/movies';
+
+		const options = {
+			method: 'PUT',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				title: values.title,
+				vote_average: parseInt(values.rating),
+				release_date: values.releaseDate,
+				poster_path: values.movieUrl,
+				overview: values.overview,
+				runtime: parseInt(values.runtime),
+				genres: [values.genre],
+				id: values.id,
+			}),
+		};
+
+		const response = await fetch(endPoint, options);
 		const jsonRes = await response.json();
 		if (!jsonRes.messages) {
 			setOpenConfimationDialog(true);
@@ -235,6 +266,7 @@ const App = () => {
 										}}
 									>
 										<MovieForm
+											title='Add movie'
 											onSubmit={(values) => addNewMovie(values)}
 											initialMovieInfo={{}}
 											onClose={() => {
@@ -247,7 +279,44 @@ const App = () => {
 							/>
 						)}
 					</Route>
-					<Route path=':movieId' element={<MovieDetailsPageWrapper />} />
+					<Route
+						path=':movieId/*'
+						element={
+							<MovieDetailsPageWrapper
+								onMovieEdit={(movie) => {
+									setOpenEdit(true);
+									setSelectedMovie(movie);
+								}}
+							/>
+						}
+					>
+						{selectedMovie && selectedMovie.title && (
+							<Route
+								path='edit'
+								element={
+									<Dialog
+										onClose={() => {
+											setSelectedMovie(null);
+											navigate(-1);
+										}}
+									>
+										<MovieForm
+											title='Edit movie'
+											onSubmit={(values) => {
+												setSelectedMovie(null);
+												editMovie(values);
+											}}
+											initialMovieInfo={selectedMovie}
+											onClose={() => {
+												setSelectedMovie(null);
+												navigate(-1);
+											}}
+										/>
+									</Dialog>
+								}
+							></Route>
+						)}
+					</Route>
 				</Route>
 			</Routes>
 

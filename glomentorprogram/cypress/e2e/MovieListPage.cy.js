@@ -1,7 +1,8 @@
 context('MovieList', () => {
-	it('loads', () => {
+	beforeEach(() => {
 		cy.visit('http://localhost:3000');
 	});
+
 	it('loads list of movies', () => {
 		it('gets a list of movies', () => {
 			cy.request(
@@ -49,5 +50,45 @@ context('MovieList', () => {
 		}).then((res) => {
 			expect(res.body.title).to.equal('Coco');
 		});
+	});
+	it('adds movie to database', () => {
+		cy.request('POST', 'http://localhost:4000/movies', {
+			title: 'Treci',
+			overview: 'treci',
+			vote_average: 5,
+			runtime: 123,
+			release_date: '2022-02-02',
+			poster_path: 'https://ttt.ttt.ttt',
+			genres: ['Comedy'],
+		}).then((res) => {
+			expect(res.body.title).to.equal('Treci');
+		});
+	});
+	it('updates movie in database', () => {
+		cy.request('PUT', 'http://localhost:4000/movies', {
+			title: 'Treci Treci',
+			overview: 'treci',
+			vote_average: 5,
+			runtime: 123,
+			release_date: '2022-02-02',
+			poster_path: 'https://ttt.ttt.ttt',
+			genres: ['Comedy'],
+			id: 1683575827527,
+		}).then((res) => {
+			expect(res.body.title).to.equal('Treci Treci');
+		});
+	});
+	it('checks if opens emtpy dialog', () => {
+		cy.get('[aria-label="add-movie-button"]').click();
+		cy.get('[data-testid="movie-form"]').should('be.visible');
+		cy.get('#title').should('not.have.value');
+		cy.get('#releaseDate').should('not.have.value');
+		cy.get('#movieUrl').should('not.have.value');
+		cy.get('#rating').should('not.have.value');
+	});
+	it('checks if opens edit dialog with movie info', () => {
+		cy.get('[data-testid="movie-card"]').first().click();
+		cy.url().should('include', '/447365');
+		cy.get('[data-testid="movie-details"]').should('be.visible');
 	});
 });

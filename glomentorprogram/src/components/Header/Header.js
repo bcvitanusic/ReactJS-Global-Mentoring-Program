@@ -16,6 +16,7 @@ function Header({ openDialog, initialQuery, onSearch }) {
 				</div>
 				<div className='add-movie'>
 					<button
+						aria-label='add-movie-button'
 						onClick={() => {
 							openDialog();
 							navigate('/new');
@@ -31,6 +32,3 @@ function Header({ openDialog, initialQuery, onSearch }) {
 }
 
 export default Header;
-
-{
-}

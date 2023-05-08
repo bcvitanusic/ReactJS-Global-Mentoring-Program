@@ -137,6 +137,10 @@
     top:50%;
     color: white;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    align-items: center;
 }
 
 .poster-image {

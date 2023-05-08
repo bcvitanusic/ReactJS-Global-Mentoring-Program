@@ -1,5 +1,5 @@
 /* eslint-disable no-restricted-globals */
-import React, { useState } from 'react';
+import React from 'react';
 import './MovieForm.css';
 import { AiFillCloseCircle as CloseIcon } from 'react-icons/ai';
 import { Formik, Field, Form } from 'formik';
@@ -15,7 +15,7 @@ const validationSchema = Yup.object().shape({
 	overview: Yup.string(),
 });
 
-function MovieForm({ onClose, initialMovieInfo, onSubmit }) {
+function MovieForm({ onClose, initialMovieInfo, onSubmit, title }) {
 	return (
 		<div className='dialog'>
 			<Formik
@@ -41,7 +41,11 @@ function MovieForm({ onClose, initialMovieInfo, onSubmit }) {
 					handleChange,
 				}) => {
 					return (
-						<Form onChange={handleChange} className='content'>
+						<Form
+							onChange={handleChange}
+							className='content'
+							data-testid='movie-form'
+						>
 							<div
 								aria-label='close-form'
 								className='close-dialog'
@@ -49,7 +53,7 @@ function MovieForm({ onClose, initialMovieInfo, onSubmit }) {
 							>
 								<CloseIcon size={35} className='close-icon' />
 							</div>
-							<div className='title'>Add movie</div>
+							<div className='title'>{title}</div>
 
 							<div className='content-row'>
 								<div className='content-row-item'>
@@ -163,10 +167,9 @@ function MovieForm({ onClose, initialMovieInfo, onSubmit }) {
 									type='button'
 									className='submit'
 									onClick={() => {
-										if (Object.keys(errors).length === 0) {
-											onSubmit(values);
-											resetForm();
-										}
+										let valuesSubmit = { ...values, id: initialMovieInfo.id };
+										onSubmit(valuesSubmit);
+										resetForm();
 									}}
 								>
 									Submit

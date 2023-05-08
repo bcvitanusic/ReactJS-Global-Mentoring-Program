@@ -1,14 +1,6 @@
+import React from 'react';
+import { action } from '@storybook/addon-actions';
 import MovieForm from './MovieForm';
-
-const initialMovie = {
-	title: 'Terminator',
-	releaseDate: '2004',
-	movieUrl: 'url',
-	rating: '8.5',
-	genre: 'comedy',
-	runtime: '2h',
-	overview: 'overview',
-};
 
 export default {
 	title: 'MovieForm',
@@ -24,10 +16,20 @@ export default {
 	},
 };
 
-const Template = (args) => <MovieForm {...args} />;
-
-export const MovieDet = Template.bind({});
-
-MovieDet.args = {
-	initialMovieInfo: initialMovie,
+const initialMovieInfo = {
+	title: 'Star Wars',
+	releaseDate: '1977-05-25',
+	movieUrl: 'https://www.imdb.com/title/tt0076759/',
+	rating: 8.6,
+	genre: 'Science Fiction',
+	runtime: 121,
+	overview: 'overview',
 };
+
+export const Default = () => (
+	<MovieForm
+		initialMovieInfo={initialMovieInfo}
+		onClose={action('close')}
+		onSubmit={action('submit')}
+	/>
+);
