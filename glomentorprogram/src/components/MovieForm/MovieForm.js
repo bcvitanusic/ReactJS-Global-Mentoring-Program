@@ -16,15 +16,16 @@ const validationSchema = Yup.object().shape({
 });
 
 function MovieForm({ onClose, initialMovieInfo, onSubmit, title }) {
+	console.log('initialMovieInfo: ', initialMovieInfo);
 	return (
 		<div className='dialog'>
 			<Formik
 				initialValues={{
 					title: initialMovieInfo.title ?? '',
-					releaseDate: initialMovieInfo.releaseDate ?? '',
-					movieUrl: initialMovieInfo.movieUrl ?? '',
-					rating: initialMovieInfo.rating ?? '',
-					genre: initialMovieInfo.genre ?? '',
+					releaseDate: initialMovieInfo.release_date ?? '',
+					movieUrl: initialMovieInfo.poster_path ?? '',
+					rating: initialMovieInfo.vote_average ?? '',
+					genre: initialMovieInfo.genres[0] ?? '',
 					runtime: initialMovieInfo.runtime ?? '',
 					overview: initialMovieInfo.overview ?? '',
 				}}
