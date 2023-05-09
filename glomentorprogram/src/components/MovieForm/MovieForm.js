@@ -118,6 +118,9 @@ function MovieForm({ onClose, initialMovieInfo, onSubmit, title }) {
 										<option className='genre-option' value='-'>
 											Select genre
 										</option>
+										<option className='genre-option' value='Action'>
+											Action
+										</option>
 										<option className='genre-option' value='Comedy'>
 											Comedy
 										</option>
