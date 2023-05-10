@@ -25,7 +25,7 @@ function MovieForm({ onClose, initialMovieInfo, onSubmit, title }) {
 					releaseDate: initialMovieInfo.release_date ?? '',
 					movieUrl: initialMovieInfo.poster_path ?? '',
 					rating: initialMovieInfo.vote_average ?? '',
-					genre: initialMovieInfo.genres[0] ?? '',
+					genre: initialMovieInfo.genres ? initialMovieInfo.genres[0] : '',
 					runtime: initialMovieInfo.runtime ?? '',
 					overview: initialMovieInfo.overview ?? '',
 				}}
