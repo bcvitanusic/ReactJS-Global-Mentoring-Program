@@ -66,16 +66,16 @@ context('MovieList', () => {
 	});
 	it('updates movie in database', () => {
 		cy.request('PUT', 'http://localhost:4000/movies', {
-			title: 'Treci Treci',
+			title: 'Treci Drugi',
 			overview: 'treci',
 			vote_average: 5,
 			runtime: 123,
 			release_date: '2022-02-02',
 			poster_path: 'https://ttt.ttt.ttt',
 			genres: ['Comedy'],
-			id: 1683575827527,
+			id: 313369,
 		}).then((res) => {
-			expect(res.body.title).to.equal('Treci Treci');
+			expect(res.body.title).to.equal('Treci Drugi');
 		});
 	});
 	it('checks if opens emtpy dialog', () => {
@@ -87,8 +87,9 @@ context('MovieList', () => {
 		cy.get('#rating').should('not.have.value');
 	});
 	it('checks if opens edit dialog with movie info', () => {
-		cy.get('[data-testid="movie-card"]').first().click();
-		cy.url().should('include', '/447365');
+		cy.visit('/424785');
+		cy.url().should('include', '/424785');
 		cy.get('[data-testid="movie-details"]').should('be.visible');
+		cy.get('[aria-label=edit-movie]').click();
 	});
 });

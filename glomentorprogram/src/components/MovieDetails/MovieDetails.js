@@ -21,6 +21,7 @@ function MovieDetails({ selectedMovie, onReturn, onOpenEdit }) {
 			<div className='content-movie'>
 				<div className='close-image-details'>
 					<p
+						aria-label='edit-movie'
 						onClick={() => {
 							navigate(`edit`);
 							onOpenEdit();

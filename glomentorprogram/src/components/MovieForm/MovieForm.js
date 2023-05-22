@@ -7,16 +7,15 @@ import * as Yup from 'yup';
 
 const validationSchema = Yup.object().shape({
 	title: Yup.string().required(),
-	releaseDate: Yup.date(),
+	releaseDate: Yup.date().required(),
 	movieUrl: Yup.string(),
 	rating: Yup.number().required(),
-	genre: Yup.mixed().oneOf(['comedy', 'horror', 'documentary', 'crime']),
+	genre: Yup.mixed().oneOf(['Comedy', 'Horror', 'Documentary', 'Crime']),
 	runtime: Yup.number().required(),
 	overview: Yup.string(),
 });
 
 function MovieForm({ onClose, initialMovieInfo, onSubmit, title }) {
-	console.log('initialMovieInfo: ', initialMovieInfo);
 	return (
 		<div className='dialog'>
 			<Formik
@@ -54,7 +53,13 @@ function MovieForm({ onClose, initialMovieInfo, onSubmit, title }) {
 							>
 								<CloseIcon size={35} className='close-icon' />
 							</div>
-							<div className='title'>{title}</div>
+							<div
+								data-testid='title-dialog'
+								aria-label='title'
+								className='title'
+							>
+								{title}
+							</div>
 
 							<div className='content-row'>
 								<div className='content-row-item'>
@@ -63,7 +68,9 @@ function MovieForm({ onClose, initialMovieInfo, onSubmit, title }) {
 									</label>
 
 									<Field
-										className={`item-input ${errors.title && 'error-input'}`}
+										className={`item-input ${
+											errors.title && touched.title && 'error-input'
+										}`}
 										id='title'
 										name='title'
 									/>
@@ -73,7 +80,9 @@ function MovieForm({ onClose, initialMovieInfo, onSubmit, title }) {
 										Release Date
 									</label>
 									<Field
-										className='item-input'
+										className={`item-input ${
+											errors.releaseDate && touched.releaseDate && 'error-input'
+										}`}
 										id='releaseDate'
 										name='releaseDate'
 									/>
@@ -86,7 +95,9 @@ function MovieForm({ onClose, initialMovieInfo, onSubmit, title }) {
 										URL
 									</label>
 									<Field
-										className={`item-input ${errors.title && 'error-input'}`}
+										className={`item-input ${
+											errors.movieUrl && touched.movieUrl && 'error-input'
+										}`}
 										id='movieUrl'
 										name='movieUrl'
 									/>
@@ -96,7 +107,9 @@ function MovieForm({ onClose, initialMovieInfo, onSubmit, title }) {
 										Rating
 									</label>
 									<Field
-										className={`item-input ${errors.title && 'error-input'}`}
+										className={`item-input ${
+											errors.rating && touched.rating && 'error-input'
+										}`}
 										id='rating'
 										name='rating'
 									/>
@@ -110,7 +123,7 @@ function MovieForm({ onClose, initialMovieInfo, onSubmit, title }) {
 									</label>
 									<Field
 										className={`item-input ${
-											errors.title && 'error-input'
+											errors.genre && touched.genre && 'error-input'
 										} genre-option`}
 										as='select'
 										name='genre'
@@ -142,7 +155,9 @@ function MovieForm({ onClose, initialMovieInfo, onSubmit, title }) {
 										Runtime
 									</label>
 									<Field
-										className={`item-input ${errors.title && 'error-input'}`}
+										className={`item-input ${
+											errors.runtime && touched.runtime && 'error-input'
+										}`}
 										id='runtime'
 										name='runtime'
 									/>
@@ -172,6 +187,9 @@ function MovieForm({ onClose, initialMovieInfo, onSubmit, title }) {
 									className='submit'
 									onClick={() => {
 										let valuesSubmit = { ...values, id: initialMovieInfo.id };
+										if (Object.keys(errors).length > 0) {
+											return;
+										}
 										onSubmit(valuesSubmit);
 										resetForm();
 									}}
