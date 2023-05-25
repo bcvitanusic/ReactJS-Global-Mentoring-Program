@@ -1,21 +1,27 @@
 /* eslint-disable no-restricted-globals */
-import React from 'react';
+import React, { useState } from 'react';
 import './MovieForm.css';
 import { AiFillCloseCircle as CloseIcon } from 'react-icons/ai';
 import { Formik, Field, Form } from 'formik';
 import * as Yup from 'yup';
 
+const URL =
+	/^((https?|ftp):\/\/)?(www.)?(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(\#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i;
+
 const validationSchema = Yup.object().shape({
 	title: Yup.string().required(),
 	releaseDate: Yup.date().required(),
-	movieUrl: Yup.string(),
+	movieUrl: Yup.string().matches(URL).required(),
 	rating: Yup.number().required(),
-	genre: Yup.mixed().oneOf(['Comedy', 'Horror', 'Documentary', 'Crime']),
+	genre: Yup.mixed()
+		.oneOf(['Comedy', 'Horror', 'Documentary', 'Crime'])
+		.required(),
 	runtime: Yup.number().required(),
 	overview: Yup.string(),
 });
 
 function MovieForm({ onClose, initialMovieInfo, onSubmit, title }) {
+	const [errorList, setErrorList] = useState([]);
 	return (
 		<div className='dialog'>
 			<Formik
@@ -68,9 +74,7 @@ function MovieForm({ onClose, initialMovieInfo, onSubmit, title }) {
 									</label>
 
 									<Field
-										className={`item-input ${
-											errors.title && touched.title && 'error-input'
-										}`}
+										className={`item-input ${errorList.title && 'error-input'}`}
 										id='title'
 										name='title'
 									/>
@@ -81,7 +85,7 @@ function MovieForm({ onClose, initialMovieInfo, onSubmit, title }) {
 									</label>
 									<Field
 										className={`item-input ${
-											errors.releaseDate && touched.releaseDate && 'error-input'
+											errorList.releaseDate && 'error-input'
 										}`}
 										id='releaseDate'
 										name='releaseDate'
@@ -96,7 +100,7 @@ function MovieForm({ onClose, initialMovieInfo, onSubmit, title }) {
 									</label>
 									<Field
 										className={`item-input ${
-											errors.movieUrl && touched.movieUrl && 'error-input'
+											errorList.movieUrl && 'error-input'
 										}`}
 										id='movieUrl'
 										name='movieUrl'
@@ -108,7 +112,7 @@ function MovieForm({ onClose, initialMovieInfo, onSubmit, title }) {
 									</label>
 									<Field
 										className={`item-input ${
-											errors.rating && touched.rating && 'error-input'
+											errorList.rating && 'error-input'
 										}`}
 										id='rating'
 										name='rating'
@@ -123,7 +127,7 @@ function MovieForm({ onClose, initialMovieInfo, onSubmit, title }) {
 									</label>
 									<Field
 										className={`item-input ${
-											errors.genre && touched.genre && 'error-input'
+											errorList.genre && 'error-input'
 										} genre-option`}
 										as='select'
 										name='genre'
@@ -156,7 +160,7 @@ function MovieForm({ onClose, initialMovieInfo, onSubmit, title }) {
 									</label>
 									<Field
 										className={`item-input ${
-											errors.runtime && touched.runtime && 'error-input'
+											errorList.runtime && 'error-input'
 										}`}
 										id='runtime'
 										name='runtime'
@@ -184,8 +188,9 @@ function MovieForm({ onClose, initialMovieInfo, onSubmit, title }) {
 								<button
 									disabled={isSubmitting}
 									type='button'
-									className='submit'
+									className={`submit`}
 									onClick={() => {
+										setErrorList(errors);
 										let valuesSubmit = { ...values, id: initialMovieInfo.id };
 										if (Object.keys(errors).length > 0) {
 											return;
