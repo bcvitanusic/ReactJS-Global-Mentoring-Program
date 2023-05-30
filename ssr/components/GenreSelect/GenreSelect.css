@@ -1,0 +1,54 @@
+.genre-select {
+    margin-top: 5px;
+    padding: 1px 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--color-black);
+    border-bottom: 2px solid var(--color-gray)
+}
+
+.genre-list {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+
+.genre-list > ul {
+    list-style-type: none;
+    margin:0;
+    padding-left: 0;
+    display: flex;
+    gap: 15px;
+    color: white;
+    cursor: pointer;
+}
+
+.genre-list > ul > li {
+    display: inline-block;
+    padding: 0 10px 0 10px; 
+}
+
+.genre-list > ul > li:first-child {
+    margin-left: 0;
+}
+
+.genre-list > ul > li > button {
+    background: none;
+    outline: none;
+    border: none;
+}
+
+.genre-item {
+    text-transform: uppercase;
+    color: var(--color-white);
+}
+
+.active {
+    border-bottom: 2px solid var(--color-red);
+    margin-bottom: -3px;
+}
+
+.movie-sort {
+    color: white;
+}

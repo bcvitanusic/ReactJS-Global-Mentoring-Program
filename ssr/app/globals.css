@@ -1,0 +1,46 @@
+:root {
+  --color-red: #F65261;
+  --color-white: white;
+  --color-black: #232323;
+  --color-gray-border: #555555;
+  --color-gray: #424242;
+  box-sizing: border-box;
+  font-family: Montserrat;
+}
+
+.App {
+  background-color: var(--color-gray-border);
+}
+
+.dialog-sth {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding:0;
+  margin:0;
+}
+
+.added-movie {
+  font-size: 20px;
+  text-align: center;
+  color: white;
+}
+
+.added-title {
+  text-transform: uppercase;
+  font-size: 30px;
+  color: lightgreen;
+  margin:0;
+  padding: 20px 5px;
+}
+
+.added-content {
+  color: lightgreen;
+  margin:0;
+  padding: 0;
+}
+
+.icon-success {
+  color: var(--color-red);
+
+}

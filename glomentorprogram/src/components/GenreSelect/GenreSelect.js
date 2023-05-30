@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import './GenreSelect.css';
 import SortControl from '../SortControl/SortControl';
