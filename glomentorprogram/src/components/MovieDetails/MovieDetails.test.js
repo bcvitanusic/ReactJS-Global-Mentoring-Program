@@ -1,21 +1,31 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import MovieDetails from './MovieDetails';
-import moviesList from '../../assets/moviesList';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 const mockedFunc = jest.fn();
+const selMovie = {
+	id: 0,
+	title: 'Pulp Fiction',
+	tagline: 'description for movie',
+	release_date: '2004-01-01',
+	overview: 'long desc',
+	genres: ['Drama'],
+	vote_average: 8.4,
+};
 
 describe('Movie Details', () => {
 	const renderMovieDetails = () =>
 		render(
-			<MovieDetails
-				url={moviesList[0].url}
-				name={'Pulp Fiction'}
-				rating={8.4}
-				description={'description for movie'}
-				year={1984}
-				longDdesc={'Long description'}
-				onReturn={mockedFunc}
-			/>
+			<BrowserRouter>
+				<Routes>
+					<Route
+						path='*'
+						element={
+							<MovieDetails selectedMovie={selMovie} onReturn={mockedFunc} />
+						}
+					/>
+				</Routes>
+			</BrowserRouter>
 		);
 
 	test('if props in MovieDetails display correctly', () => {
@@ -28,9 +38,9 @@ describe('Movie Details', () => {
 		expect(rating).toBeInTheDocument();
 		const desc = screen.getByText(/description for movie/i);
 		expect(desc).toBeInTheDocument();
-		const year = screen.getByText(/1984/i);
+		const year = screen.getByText(/2004-01-01/i);
 		expect(year).toBeInTheDocument();
-		const longdesc = screen.getByText(/Long description/i);
+		const longdesc = screen.getByText(/Long desc/i);
 		expect(longdesc).toBeInTheDocument();
 	});
 

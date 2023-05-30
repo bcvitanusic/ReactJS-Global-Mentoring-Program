@@ -10,19 +10,20 @@ const MovieCard = ({
 	onSelectMovie,
 }) => {
 	return (
-		<div className='movie-card' onClick={() => onSelectMovie(id)}>
+		<div className='movie-card' data-testid='movie-card'>
 			<img
 				className='movie-poster'
 				src={url}
 				alt={name}
 				width={400}
 				height={550}
+				onClick={() => onSelectMovie(id)}
 			/>
 			<div className='card-heading'>
 				<p>{name}</p>
 				<p className='year'>{year}</p>
 			</div>
-			<p className='desc'>{description}</p>
+			{/* <p className='desc'>{description}</p> */}
 		</div>
 	);
 };

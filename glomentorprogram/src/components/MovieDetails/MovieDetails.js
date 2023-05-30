@@ -1,11 +1,14 @@
 import React from 'react';
 import './MovieDetails.css';
+import { useNavigate } from 'react-router-dom';
 
 import { VscSearch as SearchIcon } from 'react-icons/vsc';
 
-function MovieDetails({ selectedMovie, onReturn }) {
+function MovieDetails({ selectedMovie, onReturn, onOpenEdit }) {
+	const navigate = useNavigate();
+
 	return (
-		<div className='movie-details'>
+		<div className='movie-details' data-testid='movie-details'>
 			<div className='header'>
 				<div className='logo' onClick={() => onReturn()} aria-label='logo'>
 					<p>netflix</p>
@@ -16,8 +19,17 @@ function MovieDetails({ selectedMovie, onReturn }) {
 				</div>
 			</div>
 			<div className='content-movie'>
-				<div onClick={() => onReturn()} className='close-image-details'>
-					[close]
+				<div className='close-image-details'>
+					<p
+						aria-label='edit-movie'
+						onClick={() => {
+							navigate(`edit`);
+							onOpenEdit();
+						}}
+					>
+						[edit]
+					</p>
+					<p onClick={() => onReturn()}>[close]</p>
 				</div>
 				<img
 					className='poster-image'

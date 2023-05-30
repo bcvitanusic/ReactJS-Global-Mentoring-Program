@@ -32,11 +32,6 @@ describe('SearchForm', () => {
 		expect(nameTitle).toBeInTheDocument();
 		const nameTitle1 = screen.getByText(/bohemian rapsody/i);
 		expect(nameTitle1).toBeInTheDocument();
-
-		const desc = screen.getByText(/Action & Adventure/i);
-		expect(desc).toBeInTheDocument();
-		const desc1 = screen.getByText(/Drama, Biography, Music/i);
-		expect(desc1).toBeInTheDocument();
 		const year = screen.getByText(/2004/i);
 		expect(year).toBeInTheDocument();
 		const year1 = screen.getByText(/2003/i);

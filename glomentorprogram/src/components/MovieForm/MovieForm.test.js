@@ -6,11 +6,11 @@ const mockedSubmit = jest.fn();
 
 const initialMovie = {
 	title: 'Terminator',
-	releaseDate: '2004',
-	movieUrl: 'url',
-	rating: '8.5',
-	genre: 'comedy',
-	runtime: '2h',
+	release_date: '2004-01-01',
+	poster_path: 'url',
+	vote_average: '8.5',
+	genres: ['Comedy'],
+	runtime: '101',
 	overview: 'overview',
 };
 
@@ -28,13 +28,13 @@ describe('Movie Details', () => {
 		renderMovieForm();
 		const title = screen.getByDisplayValue(/terminator/i);
 		expect(title).toBeInTheDocument();
-		const releaseDate = screen.getByDisplayValue(/2004/i);
+		const releaseDate = screen.getByDisplayValue(/2004-01-01/i);
 		expect(releaseDate).toBeInTheDocument();
 		const rating = screen.getByDisplayValue(/8.5/i);
 		expect(rating).toBeInTheDocument();
 		const genre = screen.getByDisplayValue(/comedy/i);
 		expect(genre).toBeInTheDocument();
-		const runtime = screen.getByDisplayValue(/2h/i);
+		const runtime = screen.getByDisplayValue(/101/i);
 		expect(runtime).toBeInTheDocument();
 		const overview = screen.getByDisplayValue(/overview/i);
 		expect(overview).toBeInTheDocument();

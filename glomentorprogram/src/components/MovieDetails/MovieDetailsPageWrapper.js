@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import MovieDetails from './MovieDetails';
-import { useParams, useSearchParams, useNavigate } from 'react-router-dom';
+import {
+	useParams,
+	useSearchParams,
+	useNavigate,
+	Outlet,
+	useLocation,
+} from 'react-router-dom';
 
-function MovieDetailsPageWrapper() {
+function MovieDetailsPageWrapper({ onMovieEdit }) {
 	let [searchParams] = useSearchParams();
 
 	const [selectedMovie, setSelectedMovie] = useState(null);
@@ -10,6 +16,7 @@ function MovieDetailsPageWrapper() {
 	const [error, setError] = useState(false);
 	const { movieId } = useParams();
 	const navigate = useNavigate();
+	const location = useLocation();
 
 	const getMovieById = (id) => {
 		searchParams.delete('search');
@@ -22,9 +29,14 @@ function MovieDetailsPageWrapper() {
 			.then((response) => response.json())
 			.then((data) => {
 				setSelectedMovie(data);
+				if (location.pathname === `/${id}/edit`) {
+					onMovieEdit(data);
+				}
 			})
 			.catch(() => setError(true))
-			.finally(() => setLoading(false));
+			.finally(() => {
+				setLoading(false);
+			});
 
 		return () => controller.abort();
 	};
@@ -42,12 +54,18 @@ function MovieDetailsPageWrapper() {
 	}
 	if (selectedMovie) {
 		return (
-			<MovieDetails
-				selectedMovie={selectedMovie}
-				onReturn={() => {
-					navigate('/');
-				}}
-			/>
+			<>
+				<MovieDetails
+					selectedMovie={selectedMovie}
+					onReturn={() => {
+						navigate('/');
+					}}
+					onOpenEdit={() => {
+						onMovieEdit(selectedMovie);
+					}}
+				/>
+				<Outlet />
+			</>
 		);
 	}
 }
