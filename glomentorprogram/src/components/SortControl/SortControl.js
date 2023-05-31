@@ -1,4 +1,3 @@
-'use client';
 import React, { useState } from 'react';
 import './SortControl.css';
 import { FaSort } from 'react-icons/fa';
