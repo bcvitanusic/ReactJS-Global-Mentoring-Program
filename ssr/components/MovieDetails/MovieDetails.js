@@ -1,35 +1,41 @@
-import React from 'react';
+'use client';
+import React, { useState } from 'react';
 import './MovieDetails.css';
-import { useNavigate } from 'react-router-dom';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 import { VscSearch as SearchIcon } from 'react-icons/vsc';
+import MovieForm from '../MovieForm/MovieForm';
 
-function MovieDetails({ selectedMovie, onReturn, onOpenEdit }) {
-	const navigate = useNavigate();
+function MovieDetails({ selectedMovie }) {
+	const router = useRouter();
 
+	const [openEditMovie, setOpenEditMovie] = useState(false);
 	return (
 		<div className='movie-details' data-testid='movie-details'>
 			<div className='header'>
-				<div className='logo' onClick={() => onReturn()} aria-label='logo'>
-					<p>netflix</p>
-					<p>roulette</p>
-				</div>
-				<div className='search'>
-					<SearchIcon size={25} />
-				</div>
+				<Link className='logo' href='/' aria-label='logo'>
+					<div className='logo' aria-label='logo'>
+						<p>netflix</p>
+						<p>roulette</p>
+					</div>
+				</Link>
 			</div>
 			<div className='content-movie'>
 				<div className='close-image-details'>
-					<p
-						aria-label='edit-movie'
-						onClick={() => {
-							navigate(`edit`);
-							onOpenEdit();
+					<Link
+						className='link-edit'
+						href={{
+							pathname: `/movies/${selectedMovie.id}/edit`,
+							query: { movie: selectedMovie },
 						}}
 					>
-						[edit]
-					</p>
-					<p onClick={() => onReturn()}>[close]</p>
+						<p aria-label='edit-movie'>[edit]</p>
+					</Link>
+
+					<Link className='close-link' href={'/'}>
+						<p>[close]</p>
+					</Link>
 				</div>
 				<img
 					className='poster-image'
@@ -58,6 +64,16 @@ function MovieDetails({ selectedMovie, onReturn, onOpenEdit }) {
 					<div className='desc'>{selectedMovie.overview}</div>
 				</div>
 			</div>
+			{/* {openEditMovie && (
+				<div className='movie-form-edit'>
+					<MovieForm
+						initialMovieInfo={selectedMovie}
+						onClose={() => setOpenEditMovie(false)}
+						onSubmit={() => {}}
+						title='Edit Movie'
+					/>
+				</div>
+			)} */}
 		</div>
 	);
 }

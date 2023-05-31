@@ -6,6 +6,7 @@
   --color-gray: #424242;
   box-sizing: border-box;
   font-family: Montserrat;
+  background-color: #555555;
 }
 
 .App {
@@ -42,5 +43,51 @@
 
 .icon-success {
   color: var(--color-red);
+}
+.main-page {
+  background-color: var(--color-gray-border);
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;  
+}
 
+.moviePage {
+  background-color: var(--color-gray-border);
+}
+
+.conf-dialog {
+  background-color: rgba(0, 0, 0, 0.5);
+  background-color: var(--color-black);
+  position: absolute;
+  flex-direction: column;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  padding: 50px 50px;
+  box-shadow: 10px 18px 30px var(--color-black);
+  z-index: 1000;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.close-dialog {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.logo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--color-red);
+  font-size: 20px;
+  flex-direction: row;
+  position: absolute;
+  left: 40px;
 }

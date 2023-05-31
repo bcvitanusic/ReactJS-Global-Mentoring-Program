@@ -1,14 +1,18 @@
 /* eslint-disable no-restricted-globals */
-import React, { useState } from 'react';
+'use client';
+import React, { useState, useEffect } from 'react';
 import './MovieForm.css';
 import { AiFillCloseCircle as CloseIcon } from 'react-icons/ai';
 import { Formik, Field, Form } from 'formik';
 import * as Yup from 'yup';
+import { Router } from 'next/router';
+import getMovie from '@/lib/getMovie';
 
 const URL =
 	/^((https?|ftp):\/\/)?(www.)?(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(\#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i;
 
 const validationSchema = Yup.object().shape({
+	id: Yup.number(),
 	title: Yup.string().required(),
 	releaseDate: Yup.date().required(),
 	movieUrl: Yup.string().matches(URL).required(),
@@ -22,10 +26,12 @@ const validationSchema = Yup.object().shape({
 
 function MovieForm({ onClose, initialMovieInfo, onSubmit, title }) {
 	const [errorList, setErrorList] = useState([]);
+
 	return (
 		<div className='dialog'>
 			<Formik
 				initialValues={{
+					id: initialMovieInfo.id ?? undefined,
 					title: initialMovieInfo.title ?? '',
 					releaseDate: initialMovieInfo.release_date ?? '',
 					movieUrl: initialMovieInfo.poster_path ?? '',
@@ -197,6 +203,7 @@ function MovieForm({ onClose, initialMovieInfo, onSubmit, title }) {
 										}
 										onSubmit(valuesSubmit);
 										resetForm();
+										onClose();
 									}}
 								>
 									Submit

@@ -3,9 +3,10 @@
     justify-content: center;
     align-items: center; 
     margin: 0 auto;
-    backdrop-filter: blur(10px) saturate(80%);
+    /* backdrop-filter: blur(5px) saturate(80%); */
     width: 100%;
-
+    position: absolute;
+    top: 22vh
 }
 
 .form-container {

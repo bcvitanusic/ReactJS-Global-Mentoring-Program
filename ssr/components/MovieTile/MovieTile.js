@@ -1,7 +1,11 @@
-import React from 'react';
+'use client';
+import React, { useEffect } from 'react';
 import './MovieTile.css';
 import MovieCard from './MovieCard';
-function MovieTile({ moviesList, onSelectMovie }) {
+import { useMoviesContext } from '../../app/context/movieList';
+function MovieTile({}) {
+	const { moviesList } = useMoviesContext();
+
 	return (
 		<div className='movieTile'>
 			<div className='movies-found'>
@@ -18,7 +22,6 @@ function MovieTile({ moviesList, onSelectMovie }) {
 							year={movie.release_date}
 							description={movie.description}
 							id={movie.id}
-							onSelectMovie={(id) => onSelectMovie(id)}
 						/>
 					);
 				})}

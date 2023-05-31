@@ -1,3 +1,4 @@
+'use-client';
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 import './MovieListPage.css';
@@ -8,7 +9,6 @@ import { useNavigate } from 'react-router-dom';
 
 function MovieListPage({
 	sortBy,
-	loading,
 	openDialog,
 	closeDialog,
 	selectedGenre,
@@ -31,22 +31,21 @@ function MovieListPage({
 				}}
 				sortBy={sortBy}
 			/>
-			{!loading && (
-				<MovieTile
-					moviesList={moviesList}
-					onSelectMovie={(id) => {
-						navigate(`/${id}`);
-						window.scrollTo(0, 0);
-					}}
-				/>
-			)}
 
-			{loading && (
+			<MovieTile
+				moviesList={moviesList}
+				onSelectMovie={(id) => {
+					navigate(`/${id}`);
+					window.scrollTo(0, 0);
+				}}
+			/>
+
+			{/* {loading && (
 				<div className='loading-wrapper'>
 					<div className='loading-spinner' />
 				</div>
 			)}
-			{error && <p>Error loading data...</p>}
+			{error && <p>Error loading data...</p>} */}
 		</div>
 	);
 }

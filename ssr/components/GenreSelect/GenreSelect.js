@@ -1,14 +1,29 @@
-import React from 'react';
+'use client';
+import React, { useState } from 'react';
 import './GenreSelect.css';
 import SortControl from '../SortControl/SortControl';
+import {
+	MoviesContextProvider,
+	useMoviesContext,
+} from '@/app/context/movieList';
+import selectByGenre from '@/lib/selectByGenre';
+import sortMovies from '@/lib/sortMovies';
 
-const GenreSelect = ({
-	GenreList,
-	selectedGenre,
-	onSelect,
-	onSelectSortBy,
-	sortBy,
-}) => {
+const GenreSelect = ({ GenreList }) => {
+	const { moviesList, setMoviesList } = useMoviesContext();
+	const [selectedGenre, setSelectedGenre] = useState('ALL');
+
+	const onSelect = async (genre) => {
+		setSelectedGenre(genre.toLowerCase());
+		const res = await selectByGenre(genre);
+		setMoviesList(res.data);
+	};
+
+	const sortMoviess = async (sortBy) => {
+		const res = await sortMovies(sortBy);
+		setSelectedGenre('ALL');
+		setMoviesList(res.data);
+	};
 	return (
 		<div className='genre-select'>
 			<div className='genre-list'>
@@ -20,7 +35,8 @@ const GenreSelect = ({
 								data-testid='genre-name'
 								key={item.id}
 								className={`${
-									item.name.toUpperCase() === selectedGenre && 'active'
+									item.name.toUpperCase() === selectedGenre.toUpperCase() &&
+									'active'
 								} `}
 								onClick={() => onSelect(item.name)}
 							>
@@ -31,9 +47,12 @@ const GenreSelect = ({
 				</ul>
 			</div>
 			<SortControl
-				sortBy={sortBy}
 				onSelectSortBy={(id) => {
-					onSelectSortBy(id);
+					if (id === 1) {
+						sortMoviess('title');
+					} else {
+						sortMoviess('release_date');
+					}
 				}}
 			/>
 		</div>

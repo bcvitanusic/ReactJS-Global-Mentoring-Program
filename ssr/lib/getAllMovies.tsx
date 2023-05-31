@@ -3,8 +3,8 @@ export const getAllMovies = async () => {
 		`http://localhost:4000/movies?sortBy=title&sortOrder=asc`,
 		{ cache: 'no-store' }
 	);
-
 	if (!res.ok) throw new Error('Failed to fetch data');
+	const data = await res.json();
 
-	return res.json();
+	return data;
 };

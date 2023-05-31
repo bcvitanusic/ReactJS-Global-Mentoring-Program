@@ -10,8 +10,9 @@
 }
 
 .main-page {
-  background-color: #555555;
+  background-color: var(--color-gray-border);
   width: 100%;
+  display: flex;
 }
 
 .dialog-sth {
@@ -44,5 +45,4 @@
 
 .icon-success {
   color: var(--color-red);
-
 }

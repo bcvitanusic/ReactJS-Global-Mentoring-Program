@@ -4,7 +4,7 @@ const nextConfig = {
 	images: {
 		loader: 'default',
 		minimumCacheTTL: 60,
-		domains: ['image.tmdb.org'],
+		domains: ['image.tmdb.org', 'www.aaa.com'],
 	},
 };
 

@@ -1,3 +1,4 @@
+'use client';
 import React, { useState } from 'react';
 import ButtonSearch from './ButtonSearch/ButtonSearch';
 import './SearchForm.css';
@@ -12,9 +13,6 @@ function SearchForm({ initialSearchQuery, onSearch }) {
 			<div className='form-container'>
 				<div className='input-field'>
 					<input
-						onFocus={() => {
-							setSearchQuery('');
-						}}
 						name='search'
 						aria-label='search'
 						type={'search'}
@@ -29,7 +27,7 @@ function SearchForm({ initialSearchQuery, onSearch }) {
 						}}
 					/>
 				</div>
-				<ButtonSearch callBackFunc={() => onSearchPress()} />
+				<ButtonSearch callBackFunc={onSearchPress} />
 			</div>
 		</div>
 	);

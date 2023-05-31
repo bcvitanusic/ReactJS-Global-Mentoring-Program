@@ -1,6 +1,8 @@
 .movieTile {
     background-color: var(--color-black);
-    padding: 4px 3rem;   
+    padding: 4px 0rem;
+    width: 100%;
+    max-width: 100%;
   }
 
 .movies-found {

@@ -1,3 +1,4 @@
+'use client';
 import React, { useState } from 'react';
 import './SortControl.css';
 import { FaSort } from 'react-icons/fa';
@@ -15,11 +16,12 @@ const sortOptions = [
 	},
 ];
 
-function SortControl({ sortBy, onSelectSortBy }) {
+function SortControl({ onSelectSortBy }) {
 	const [sortDropdownOpen, setSortDropdownOpen] = useState(false);
+	const [sortBy, setSortBy] = useState(0);
 
 	return (
-		<div className='movie-sort' onMouseLeave={() => setSortDropdownOpen(false)}>
+		<div className='movie-sort'>
 			<div className='label'>
 				<p>Sort By</p>
 			</div>
@@ -37,6 +39,7 @@ function SortControl({ sortBy, onSelectSortBy }) {
 					</div>
 					<FaSort size={18} className='arrow' aria-label='arrow' />
 				</div>
+
 				{sortDropdownOpen && (
 					<div className='dropdown'>
 						<ul>
@@ -45,6 +48,7 @@ function SortControl({ sortBy, onSelectSortBy }) {
 									className={`${sortBy === option.id && 'active'}`}
 									key={option.id}
 									onClick={() => {
+										setSortBy(option.id);
 										onSelectSortBy(option.id);
 										setSortDropdownOpen(false);
 									}}
