@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect } from 'react';
+import React from 'react';
 import './MovieTile.css';
 import MovieCard from './MovieCard';
 import { useMoviesContext } from '../../app/context/movieList';
