@@ -9,6 +9,7 @@ import SearchForm from './components/SearchForm/SearchForm';
 import MovieForm from './components/MovieForm/MovieForm';
 import Dialog from './components/Dialog/Dialog';
 import { BsFillCheckCircleFill as MovieAddedIcon } from 'react-icons/bs';
+import { hot } from 'react-hot-loader/root';
 
 const App = () => {
 	let [searchParams, setSearchParams] = useSearchParams();
@@ -340,4 +341,4 @@ const App = () => {
 	);
 };
 
-export default App;
+export default hot(App);

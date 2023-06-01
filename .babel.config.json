@@ -1,7 +1,0 @@
-{
-    "jest": {
-      "transformIgnorePatterns": [
-        "node_modules/(?!(module))"
-      ]
-    }
-  }
