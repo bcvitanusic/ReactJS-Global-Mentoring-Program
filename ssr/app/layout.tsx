@@ -18,13 +18,14 @@ export default async function RootLayout({
 }: {
 	children: React.ReactNode;
 }) {
+	const movies = await getAllMovies();
 	return (
 		<html lang='en'>
 			<body className={inter.className}>
 				<MoviesContextProvider>
 					{children}
 					<GenreSelect GenreList={GenreList} />
-					<MovieTile />
+					<MovieTile movies={movies} />
 				</MoviesContextProvider>
 			</body>
 		</html>

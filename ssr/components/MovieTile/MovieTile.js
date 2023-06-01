@@ -3,17 +3,18 @@ import React from 'react';
 import './MovieTile.css';
 import MovieCard from './MovieCard';
 import { useMoviesContext } from '../../app/context/movieList';
-function MovieTile({}) {
-	const { moviesList } = useMoviesContext();
+function MovieTile({ movies }) {
+	// const { moviesList, setMoviesList } = useMoviesContext();
 
+	// setMoviesList(movies.data);
 	return (
 		<div className='movieTile'>
 			<div className='movies-found'>
-				<p>{moviesList.length}</p>
+				<p>{movies.data.length}</p>
 				<p>movies found</p>
 			</div>
 			<div className='card-list'>
-				{moviesList.map((movie) => {
+				{movies.data.map((movie) => {
 					return (
 						<MovieCard
 							key={movie.id}
